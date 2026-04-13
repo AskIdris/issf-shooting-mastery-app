@@ -1,0 +1,59 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Stores user progress, points, and basic profile info.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "displayName": { "type": "string", "description": "User's display name" },
+        "photoURL": { "type": "string", "description": "User's avatar URL" },
+        "totalPoints": { "type": "integer", "description": "Total points earned" },
+        "level": { "type": "integer", "description": "User's current level" },
+        "lastUpdated": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "totalPoints"]
+    },
+    "DrillAttempt": {
+      "title": "Drill Attempt",
+      "description": "Records of individual drill sessions.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "User who performed the drill" },
+        "drillId": { "type": "string", "description": "ID of the drill" },
+        "successRate": { "type": "integer", "description": "Percentage of success" },
+        "pointsEarned": { "type": "integer", "description": "Points awarded for this attempt" },
+        "isPersonalBest": { "type": "boolean", "description": "Whether this was a new PB" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "drillId", "successRate", "pointsEarned", "timestamp"]
+    },
+    "QuizResult": {
+      "title": "Quiz Result",
+      "description": "Records of quiz completions.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "User who took the quiz" },
+        "score": { "type": "integer", "description": "Number of correct answers" },
+        "totalQuestions": { "type": "integer", "description": "Total questions in the quiz" },
+        "pointsEarned": { "type": "integer", "description": "Points awarded" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "score", "totalQuestions", "pointsEarned", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile and points"
+    },
+    "/drill_attempts/{attemptId}": {
+      "schema": "DrillAttempt",
+      "description": "History of drill attempts"
+    },
+    "/quiz_results/{resultId}": {
+      "schema": "QuizResult",
+      "description": "History of quiz results"
+    }
+  }
+}

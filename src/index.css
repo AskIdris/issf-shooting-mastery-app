@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-shooting-gold: #FFD700;
+  --color-shooting-silver: #C0C0C0;
+  --color-shooting-bronze: #CD7F32;
+  --color-shooting-red: #FF4B4B;
+  --color-shooting-blue: #4B79FF;
+  --color-shooting-black: #1A1A1A;
+  
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+}
+
+@layer base {
+  body {
+    @apply bg-[#F5F5F7] text-shooting-black antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-sm;
+  }
+  
+  .performance-zone-10 { @apply bg-shooting-gold text-black; }
+  .performance-zone-9 { @apply bg-shooting-silver text-black; }
+  .performance-zone-8 { @apply bg-shooting-bronze text-white; }
+  .performance-zone-7 { @apply bg-shooting-black text-white; }
+  .performance-zone-miss { @apply bg-shooting-red text-white; }
+}
+
