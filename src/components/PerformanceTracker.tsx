@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Plus, X, Target, Save, History, Trash2 } from 'lucide-react';
+import { Plus, X, Target, Save, History, Trash2, Edit2 } from 'lucide-react';
 import { TrainingSession } from '../types';
 import { cn } from '../lib/utils';
 import { useAuth } from '../context/AuthContext';
-import { db, POINTS } from '../firebase';
+import { db, POINTS, handleFirestoreError, OperationType } from '../firebase';
 
 export default function PerformanceTracker({ 
   sessions, 
-  onAddSession 
+  onAddSession,
+  onUpdateSession
 }: { 
   sessions: TrainingSession[]; 
   onAddSession: (s: TrainingSession) => void;
+  onUpdateSession: (s: TrainingSession) => void;
 }) {
   const [isAdding, setIsAdding] = useState(false);
+  const [editingSession, setEditingSession] = useState<TrainingSession | null>(null);
   const [newSession, setNewSession] = useState<Partial<TrainingSession>>({
     type: 'Air Pistol',
     score: 0,
@@ -52,9 +55,17 @@ export default function PerformanceTracker({
         
         await awardPoints(points);
       } catch (error) {
-        console.error("Failed to award points in PerformanceTracker:", error);
+        handleFirestoreError(error, OperationType.WRITE, 'sessions');
       }
     }
+  };
+
+  const handleUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingSession) return;
+
+    onUpdateSession(editingSession);
+    setEditingSession(null);
   };
 
   return (
@@ -104,7 +115,7 @@ export default function PerformanceTracker({
         <div className="space-y-3">
           {sessions.map(session => (
             <div key={session.id} className="bg-white p-5 rounded-2xl border border-gray-100 flex items-center justify-between group">
-              <div className="space-y-1">
+              <div className="space-y-1 flex-1">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-bold text-shooting-blue bg-shooting-blue/5 px-2 py-0.5 rounded-md">
                     {session.type}
@@ -113,9 +124,17 @@ export default function PerformanceTracker({
                     {new Date(session.date).toLocaleDateString()}
                   </span>
                 </div>
-                <p className="text-sm font-medium text-gray-700 line-clamp-1">
-                  {session.notes || 'No notes provided'}
-                </p>
+                <div className="flex items-center gap-2 group/note">
+                  <p className="text-sm font-medium text-gray-700 line-clamp-1">
+                    {session.notes || 'No notes provided'}
+                  </p>
+                  <button 
+                    onClick={() => setEditingSession(session)}
+                    className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-shooting-blue transition-all"
+                  >
+                    <Edit2 size={12} />
+                  </button>
+                </div>
               </div>
               <div className="text-right">
                 <p className="text-2xl font-mono font-black text-shooting-black">{session.score}</p>
@@ -206,6 +225,55 @@ export default function PerformanceTracker({
                   className="w-full bg-shooting-black text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-black transition-colors shadow-lg shadow-black/10"
                 >
                   <Save size={20} /> Save Session
+                </button>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Edit Notes Modal */}
+      <AnimatePresence>
+        {editingSession && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-6"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-white w-full max-w-md rounded-3xl overflow-hidden shadow-2xl"
+            >
+              <div className="p-6 border-b border-gray-100 flex justify-between items-center">
+                <div className="space-y-1">
+                  <h2 className="font-bold text-lg">Edit Session Notes</h2>
+                  <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest">
+                    {editingSession.type} • {new Date(editingSession.date).toLocaleDateString()}
+                  </p>
+                </div>
+                <button onClick={() => setEditingSession(null)} className="text-gray-400 hover:text-gray-600">
+                  <X size={20} />
+                </button>
+              </div>
+              <form onSubmit={handleUpdate} className="p-6 space-y-6">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-gray-400 uppercase tracking-widest">Notes</label>
+                  <textarea
+                    placeholder="Update your session notes..."
+                    value={editingSession.notes}
+                    onChange={e => setEditingSession({ ...editingSession, notes: e.target.value })}
+                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-shooting-blue focus:border-transparent outline-none transition-all h-32 resize-none"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-shooting-black text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-black transition-colors shadow-lg shadow-black/10"
+                >
+                  <Save size={20} /> Update Notes
                 </button>
               </form>
             </motion.div>

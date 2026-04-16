@@ -101,19 +101,23 @@ export interface UserProfile {
 
 // Helper to update user points
 export async function addPoints(userId: string, points: number) {
-  const userRef = doc(db, 'users', userId);
-  const userSnap = await getDoc(userRef);
+  try {
+    const userRef = doc(db, 'users', userId);
+    const userSnap = await getDoc(userRef);
 
-  if (userSnap.exists()) {
-    const currentPoints = userSnap.data().totalPoints || 0;
-    const newPoints = currentPoints + points;
-    const newLevel = Math.floor(newPoints / POINTS.LEVEL_UP_BASE) + 1;
-    
-    await updateDoc(userRef, {
-      totalPoints: newPoints,
-      level: newLevel,
-      lastUpdated: Timestamp.now()
-    });
+    if (userSnap.exists()) {
+      const currentPoints = userSnap.data().totalPoints || 0;
+      const newPoints = currentPoints + points;
+      const newLevel = Math.floor(newPoints / POINTS.LEVEL_UP_BASE) + 1;
+      
+      await updateDoc(userRef, {
+        totalPoints: newPoints,
+        level: newLevel,
+        lastUpdated: Timestamp.now()
+      });
+    }
+  } catch (error) {
+    handleFirestoreError(error, OperationType.WRITE, `users/${userId}`);
   }
 }
 

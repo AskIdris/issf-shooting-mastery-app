@@ -7,7 +7,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'The Foundation: Olympic Stance',
     description: 'Master the 45-degree balanced stance for maximum stability.',
     content: 'The Olympic stance is the bedrock of stability. Position your feet shoulder-width apart at a 30-45 degree angle to the target. Distribute your weight evenly or slightly towards the non-shooting side to counter-balance the pistol. Keep your head erect and turn it naturally toward the target. Your non-shooting hand should be anchored (e.g., in a pocket) to ensure the shoulder remains relaxed and consistent. \n\nKey details from the experts:\n- Natural Point of Aim (NPA): Close your eyes, lift the pistol, and open them. If you aren\'t on target, move your feet, not your arm.\n- Knee Tension: Keep knees firm but not hyperextended to avoid tremors.\n- Shoulder Alignment: The shooting shoulder should be relaxed and down, creating a consistent skeletal support.\n- Head Level: Avoid tilting your head to the side, as this can affect your inner ear balance and visual perception.',
-    imageUrl: '/assets/stance.png',
+    imageUrl: 'public/assets/stance-points.png',
     videoUrl: 'https://www.youtube.com/embed/bA5bwWR8Hn0'
     
     
@@ -27,7 +27,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'The Wrist and Hand',
     description: 'Mastering wrist lock and hand tension for recoil control.',
     content: 'The wrist must be locked and firm to act as a solid extension of the arm. Any "play" in the wrist will result in inconsistent shot placement. This module covers the specific tension required in the hand and the importance of a straight wrist line from the forearm through the pistol.\n\nTechnical Breakdown:\n- Wrist Lock: The wrist should be "set" before the lift and remain immobile until follow-through is complete.\n- Straight Line: Align the barrel with the bones of the forearm to transmit recoil directly into the shoulder.\n- Handshake Tension: Use the same pressure you would for a firm, professional handshake.\n- Muscle Memory: Practice locking the wrist consistently during dry fire to ensure it becomes automatic during competition.',
-    imageUrl: '/assets/grip.png',
+    imageUrl: 'public/assets/triggering.jpg',
     videoUrl: 'https://www.youtube.com/embed/oJsghHd_wbY'
   },
   {
@@ -36,7 +36,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'Natural Point of Aim (NPA)',
     description: 'Ensure your body is naturally aligned with the target.',
     content: 'Natural Point of Aim (NPA) is the position where your body naturally points when relaxed. To find it: 1. Close your eyes and lift the pistol. 2. Open your eyes. 3. If you aren\'t on target, move your feet, not your arm. This ensures you aren\'t using muscle tension to "hold" the pistol on target.\n\nNPA Refinement:\n- Vertical NPA: Adjust the distance between your feet to change the natural height of your arm.\n- Horizontal NPA: Pivot your entire stance around your lead foot to align with the bullseye.\n- Check and Re-check: Perform an NPA check before every series of shots.',
-    imageUrl: '/assets/stance-points.png',
+    imageUrl: 'public/assets/npa.png',
     videoUrl: 'https://www.youtube.com/embed/cD7vNhLh9ao'
   },
   {
@@ -45,7 +45,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'Pistol Sight Alignment',
     description: 'The relationship between front and rear sights.',
     content: 'Sight alignment is the most critical technical skill. The top of the front sight must be perfectly level with the top of the rear sight, with equal light gaps on both sides. Your focus must be 100% on the front sight blade, making it sharp while the target and rear sight appear slightly blurred. This minimizes angular error.\n\nComprehensive Details:\n- Angular Error: A tiny 1mm misalignment at the pistol results in a massive 10cm miss at the 10m target.\n- Equal Light: The "light gaps" on either side of the front sight must be identical to ensure horizontal centering.\n- Level Tops: The vertical relationship is just as important; the front sight must not "peek" above or "sink" below the rear notch.\n- Front Sight Focus: The human eye cannot focus on three objects at different distances simultaneously. Choose the front sight.',
-    imageUrl: '/assets/sight-alignment.png',
+    imageUrl: '/assets/sight-with-dimensions.jpg',
     videoUrl: 'https://www.youtube.com/embed/Y7Rzoh4su08'
   },
   {
@@ -54,7 +54,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'The Correct Sight Picture',
     description: 'How to position your aligned sights on the target.',
     content: 'The "Sight Picture" is where you place your aligned sights on the target. Use the "Sub-Six" hold: aim in the white area just below the black bullseye. This provides a clear, high-contrast reference point, preventing the "black-on-black" blurring that happens when aiming at the center.\n\nSight Picture Strategy:\n- The "Line of White": Maintain a thin strip of white between the top of your sights and the bottom of the bullseye for maximum contrast.\n- Area Aiming: Do not try to "pin" the sights to a single point. Accept the natural movement within the white area.\n- Contrast Advantage: Black sights on a white background are much easier for the eye to align than black sights on a black bullseye.',
-    imageUrl: '/assets/sight-picture.png',
+    imageUrl: '/public/assets/sight-picture.png',
     videoUrl: 'https://www.youtube.com/embed/Akv-el7m2l4'
   },
   {
@@ -63,7 +63,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'The Stability Window',
     description: 'Understanding the peak period of stability during your hold.',
     content: 'Every shooter has an "area of movement." The goal isn\'t to be perfectly still, but to keep your movement small and centered. Peak stability usually occurs 5-8 seconds after settling into the aiming area. This is your "Stability Window."\n\nDetailed Insights:\n- Area Aiming: Accept the natural wobble. Trying to "stop" the movement causes muscle tension and jerking.\n- Core Stability: Stability comes from the legs and core, not just the arm.\n- The Window: If the shot hasn\'t fired by 10-12 seconds, your stability will rapidly decrease. Put the pistol down and reset.',
-    imageUrl: '/assets/hold-compare.png',
+    imageUrl: '/assets/stability.png',
     videoUrl: 'https://www.youtube.com/embed/cQdNVRz7hOs'
   },
   {
@@ -72,7 +72,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'The Shot Cycle',
     description: 'Coordinating arm lift, breathing, and trigger control.',
     content: 'A disciplined cycle: 1. Lift pistol above target while inhaling. 2. Lower into the aiming area while exhaling halfway. 3. Settle into the "respiratory pause." 4. Execute the trigger press within the 5-8 second stability window. 5. Follow through for 2 seconds after the shot.\n\nCycle Breakdown:\n- The Lift: Raise the arm 15-20 degrees above the target to allow for a controlled descent.\n- The Descent: Use the weight of the pistol to help you settle into the white area below the bullseye.\n- The Window: If the shot hasn\'t fired by 10 seconds, put the pistol down and reset.',
-    imageUrl: '/assets/pistol-arm-lifts.png',
+    imageUrl: '/assets/prepare-for-shot.png',
     videoUrl: 'https://www.youtube.com/embed/oJsghHd_wbY'
   },
   {
@@ -89,7 +89,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'The Breathing Cycle',
     description: 'Sync your shot with your respiratory pause.',
     content: 'Proper breathing lowers your heart rate and stabilizes your platform. Take two deep, calming breaths during the lift. As you lower the pistol into the sub-six area, release half your breath and hold. This creates a "respiratory pause" where body movement is at its absolute minimum for 6-10 seconds.\n\nBreathing Mechanics:\n- Abdominal Breathing: Breathe from the diaphragm to avoid chest movement.\n- The Pause: The pause should be natural, not a forced "breath hold" which causes CO2 buildup and tremors.',
-    imageUrl: '/assets/prepare-for-shot.png',
+    imageUrl: '/public/assets/pistol-arm-lifts.png',
     videoUrl: 'https://www.youtube.com/embed/x8aRU-6Io9U'
   },
   {
@@ -98,7 +98,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'Smooth Execution',
     description: 'The "Surprise Break" method for perfect shots.',
     content: 'Trigger control is about applying smooth, constant pressure directly to the rear. The shot should "surprise" you when it breaks. If you try to "time" the shot when the sights look perfect, you will likely jerk the trigger and pull the shot off-center. \n\nComprehensive Details:\n- First Stage: Take up 60-80% of the trigger weight as you settle into the aiming area. This is the "prep" stage.\n- Second Stage: Apply a slow, continuous increase in pressure until the shot breaks. Avoid "poking" the trigger.\n- Straight Back: Ensure the pressure is perfectly parallel to the barrel. Any lateral movement will pull the front sight out of alignment.\n- The Surprise: If you know exactly when the shot will fire, you will flinch. Let the shot happen.',
-    imageUrl: '/assets/grip.png',
+    imageUrl: 'public/assets/olympic-stance.png',
     videoUrl: 'https://www.youtube.com/embed/Akv-el7m2l4'
   },
   {
@@ -107,7 +107,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'The Science of the 10-Ring',
     description: 'Key technical components identified by sports science.',
     content: 'Research identifies three pillars of a 10: 1. Aiming Accuracy (centering your movement), 2. Stability of Hold (minimizing movement), and 3. Timing of Trigger (releasing during peak stability). Aiming accuracy is often the most significant factor for elite performance.\n\nComprehensive Details:\n- Stability Window: Elite shooters release the shot within a 1.5-second window of maximum stability, usually 5-8 seconds into the hold.\n- Front Sight Focus: Eye tracking shows champions maintain 100% focus on the front sight for at least 2 seconds before the break.\n- Trigger Pull Dynamics: The speed of the trigger pull should be consistent. Science shows that "jerking" even slightly increases group size by 40%.\n- Natural Point of Aim: Scientific studies confirm that fighting your natural alignment leads to muscle fatigue and tremors.',
-    imageUrl: '/assets/sight-picture.png',
+    imageUrl: 'public/assets/mental prep.png',
     videoUrl: 'https://www.youtube.com/embed/Akv-el7m2l4'
   },
   {
@@ -116,7 +116,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'The Ideal Junior Pistol',
     description: 'Key features of a starter pistol for young athletes.',
     content: 'Junior equipment should be lightweight (700-850g) to prevent fatigue and allow for proper technique development. Sights should be clear and adjustable. For air pistols, a 500g trigger weight is standard, ensuring safety while allowing for a precise "surprise" break.\n\nEquipment Selection:\n- Weight Management: A pistol that is too heavy will lead to poor posture and "elbow drop."\n- Grip Fit: The grip should allow the shooter\'s hand to wrap naturally without stretching the fingers.\n- Trigger Reach: The index finger should reach the trigger blade comfortably while maintaining a 90-degree angle.\n- Balance: Look for a pistol with adjustable weights to fine-tune the balance point as the shooter grows.',
-    imageUrl: 'https://picsum.photos/seed/pistol-gear/800/600',
+    imageUrl: '/assets/safety-downrange.png',
     videoUrl: 'https://www.youtube.com/embed/cD7vNhLh9ao'
   },
   {
@@ -125,7 +125,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'The Three Golden Rules',
     description: 'Muzzle control, open actions, and safety flags.',
     content: 'Safety is non-negotiable: 1. Muzzle always downrange. 2. Action open when not on the firing line. 3. CBI (Clear Barrel Indicator) inserted at all times when the pistol is not in use. Treat every firearm as if it were loaded.\n\nSafety Protocols:\n- The "Laser" Rule: Treat the muzzle as if it were emitting a continuous laser beam that destroys anything it touches.\n- Finger Discipline: Keep your finger outside the trigger guard until your sights are on the target and you are ready to fire.\n- Range Commands: Always obey the Range Officer\'s commands immediately and without question.\n- Eye and Ear Protection: Always wear appropriate safety gear, even when shooting low-power air pistols.',
-    imageUrl: 'https://picsum.photos/seed/pistol-safety/800/600',
+    imageUrl: '/assets/safety-flag.png',
     videoUrl: 'https://www.youtube.com/embed/cD7vNhLh9ao'
   },
   {
@@ -134,7 +134,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'Calling the Shot',
     description: 'The art of follow-through and mental snapshots.',
     content: 'Follow-through is maintaining your focus and position for 2 seconds after the shot fires. This allows you to "call the shot"—identifying exactly where the front sight was at the moment of ignition. This mental snapshot is the most valuable feedback tool for a shooter.\n\nFollow-Through Essentials:\n- Visual Snapshot: Keep your eyes on the front sight even after the shot breaks.\n- Physical Hold: Do not lower the pistol immediately; hold the position to ensure the pellet has fully cleared the barrel.\n- Mental Analysis: Ask yourself: "Where was the front sight when it fired?"\n- Recoil Management: Observe the natural movement of the sights during recoil to ensure it returns to the same point.',
-    imageUrl: '/assets/prepare-for-shot.png',
+    imageUrl: 'public/assets/suprise break.png',
     videoUrl: 'https://www.youtube.com/embed/oJsghHd_wbY'
   },
   {
@@ -143,7 +143,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'The Mental Game',
     description: 'Developing the mindset of a champion.',
     content: 'Success in shooting is 90% mental. Focus on the *process* (stance, grip, sight, trigger) rather than the *outcome* (the score). Use visualization to rehearse perfect shots and develop a "reset" routine to stay calm after a poor shot. A champion\'s mind is quiet and task-oriented.\n\nMindset Strategies:\n- Process Focus: Your only job is to execute the next shot perfectly. The score takes care of itself.\n- Visualization: Spend 5 minutes before a match imagining the perfect sight alignment and smooth trigger break.\n- The Reset: If a shot goes wide, take a deep breath and "delete" it from your memory.\n- Self-Talk: Maintain positive, instructional self-talk (e.g., "Front sight, smooth press") instead of critical thoughts.',
-    imageUrl: '/assets/prepare-for-shot.png',
+    imageUrl: '/assets/hat-technique.png',
     videoUrl: 'https://www.youtube.com/embed/Q2NCbuBzEAs'
   },
   {
@@ -161,7 +161,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'Live Fire Transition',
     description: 'Applying your skills on the range.',
     content: 'When moving to live fire, the goal is to maintain the exact same mental and physical process as dry fire. Don\'t "fight" the recoil; let it happen naturally. Focus on the front sight and trust that your trigger finger will execute the smooth press you\'ve practiced.\n\nTransition Tips:\n- Ignore the Hole: Do not look at the target through a scope after every shot. It breaks your concentration.\n- Trust the Process: If your dry fire is good, your live fire will be good. Recoil is just a byproduct.\n- Shot Calling: Use your live fire sessions to verify your shot calling ability. Compare your mental snapshot to the actual hole in the target.\n- Quality over Quantity: It is better to fire 10 perfect shots than 50 mediocre ones.',
-    imageUrl: '/assets/hat-technique.png',
+    imageUrl: '/assets/stance.png',
     videoUrl: 'https://www.youtube.com/embed/cD7vNhLh9ao'
   }
 ];
@@ -1657,6 +1657,356 @@ export const QUIZZES: QuizQuestion[] = [
     options: ['Thinking about what to eat for dinner', 'Focusing intensely on a specific technical feeling, like the trigger pressure', 'Looking at the crowd', 'Listening to music'],
     correctAnswer: 1,
     explanation: 'Narrow internal focus allows the shooter to monitor and fine-tune the subtle physical sensations required for a perfect shot.'
+  },
+  {
+    id: 'q216',
+    question: 'What is the "Natural Point of Aim" (NPA) check?',
+    options: ['Closing your eyes and checking if the sights align with the target upon opening', 'Checking the weight of the pistol', 'Looking at the wind flags', 'Adjusting the rear sight'],
+    correctAnswer: 0,
+    explanation: 'NPA check ensures your body is naturally aligned with the target, reducing the need for muscle correction.'
+  },
+  {
+    id: 'q217',
+    question: 'How should you adjust your horizontal NPA?',
+    options: ['By moving your arm', 'By moving your feet', 'By adjusting the sights', 'By leaning your body'],
+    correctAnswer: 1,
+    explanation: 'Horizontal NPA is adjusted by pivoting your entire body around the lead foot or moving both feet.'
+  },
+  {
+    id: 'q218',
+    question: 'What is the "Stability Window"?',
+    options: ['The time between matches', 'The optimal period of stability during a hold (usually 5-10s)', 'A literal window on the range', 'The size of the target'],
+    correctAnswer: 1,
+    explanation: 'The stability window is the peak period of stillness before fatigue and oxygen debt set in.'
+  },
+  {
+    id: 'q219',
+    question: 'What is "Area Aiming"?',
+    options: ['Aiming at the whole range', 'Accepting natural movement within a small area rather than a single point', 'Aiming at the white part of the target', 'Closing both eyes'],
+    correctAnswer: 1,
+    explanation: 'Area aiming reduces the psychological pressure to be perfectly still, which often leads to better trigger execution.'
+  },
+  {
+    id: 'q220',
+    question: 'What is "Milking the Grip"?',
+    options: ['Cleaning the grip', 'Sympathetic movement of the lower fingers during trigger pull', 'Adding weight to the grip', 'Changing the grip angle'],
+    correctAnswer: 1,
+    explanation: 'Milking the grip is a common error where the lower fingers tighten as the trigger is pulled, disturbing the sights.'
+  },
+  {
+    id: 'q221',
+    question: 'What is the "Surprise Break"?',
+    options: ['The pistol breaking', 'The shot firing without a conscious "now" command from the brain', 'A sudden noise on the range', 'Missing the target'],
+    correctAnswer: 1,
+    explanation: 'A surprise break prevents the shooter from flinching or jerking the trigger in anticipation of the shot.'
+  },
+  {
+    id: 'q222',
+    question: 'What is "Calling the Shot"?',
+    options: ['Yelling when you fire', 'Predicting the shot location based on the sight picture at the moment of the break', 'Telling the RO your score', 'Asking for a protest'],
+    correctAnswer: 1,
+    explanation: 'Calling the shot is a vital skill for diagnosing technical errors and building self-awareness.'
+  },
+  {
+    id: 'q223',
+    question: 'What is the "Trigger Reset"?',
+    options: ['Turning the pistol off', 'Allowing the trigger to move forward to engage the sear for the next shot', 'Adjusting trigger weight', 'Cleaning the trigger'],
+    correctAnswer: 1,
+    explanation: 'Proper trigger reset is essential for consistent follow-up shots and maintaining a steady grip.'
+  },
+  {
+    id: 'q224',
+    question: 'What is "Sight Alignment"?',
+    options: ['Looking at the target', 'The relationship between the front and rear sights', 'Adjusting the sights for wind', 'Cleaning the sights'],
+    correctAnswer: 1,
+    explanation: 'Sight alignment is the most critical technical factor in precision shooting.'
+  },
+  {
+    id: 'q225',
+    question: 'What is "Sight Picture"?',
+    options: ['A photo of the sights', 'The relationship between the aligned sights and the target', 'The color of the sights', 'The size of the rear notch'],
+    correctAnswer: 1,
+    explanation: 'Sight picture is the final aiming stage where the aligned sights are placed in the aiming area.'
+  },
+  {
+    id: 'q226',
+    question: 'Which is more important: Sight Alignment or Sight Picture?',
+    options: ['Sight Alignment', 'Sight Picture', 'They are equally important', 'Neither'],
+    correctAnswer: 0,
+    explanation: 'Angular error from poor sight alignment causes much larger misses than parallel shift from poor sight picture.'
+  },
+  {
+    id: 'q227',
+    question: 'What is "Angular Error"?',
+    options: ['A math mistake', 'Error caused by misalignment of the front and rear sights', 'Error caused by the wind', 'Error caused by the pellet weight'],
+    correctAnswer: 1,
+    explanation: 'Angular error is magnified over distance; a 1mm error at the sights can be a 10cm error at the target.'
+  },
+  {
+    id: 'q228',
+    question: 'What is "Parallel Shift"?',
+    options: ['Moving the whole pistol sideways while sights remain aligned', 'Changing your stance', 'The pellet moving in the wind', 'The target moving'],
+    correctAnswer: 0,
+    explanation: 'Parallel shift causes much smaller errors than angular error, which is why sight alignment is prioritized.'
+  },
+  {
+    id: 'q229',
+    question: 'What is "Canting"?',
+    options: ['Cleaning the pistol', 'Tilting the pistol to the left or right', 'Dropping the pistol', 'Adjusting the trigger'],
+    correctAnswer: 1,
+    explanation: 'Canting changes the relationship between the sights and the bore, leading to horizontal and vertical errors.'
+  },
+  {
+    id: 'q230',
+    question: 'What is the "Natural Respiratory Pause"?',
+    options: ['Holding your breath until you pass out', 'The natural stillness after exhalation', 'Breathing fast during a match', 'Gasping for air'],
+    correctAnswer: 1,
+    explanation: 'The natural respiratory pause is the most stable time to execute a shot.'
+  },
+  {
+    id: 'q231',
+    question: 'How should you breathe during the shot process?',
+    options: ['Hold your breath as long as possible', 'Take deep breaths, then settle into a natural pause', 'Breathe normally throughout', 'Pant to get more oxygen'],
+    correctAnswer: 1,
+    explanation: 'Controlled breathing oxygenates the blood and helps the body settle into a stable hold.'
+  },
+  {
+    id: 'q232',
+    question: 'What is "Trigger Freeze"?',
+    options: ['The trigger getting cold', 'Inability to pull the trigger due to mental block or over-focus', 'A broken trigger', 'Firing too fast'],
+    correctAnswer: 1,
+    explanation: 'Trigger freeze is often caused by the brain refusing to fire because the sight picture isn\'t "perfect".'
+  },
+  {
+    id: 'q233',
+    question: 'What is "Positive Self-Talk"?',
+    options: ['Talking to your pistol', 'Using encouraging internal dialogue to maintain confidence', 'Yelling at the target', 'Singing during a match'],
+    correctAnswer: 1,
+    explanation: 'Positive self-talk helps manage anxiety and keeps the shooter focused on the process.'
+  },
+  {
+    id: 'q234',
+    question: 'What is "Process over Outcome"?',
+    options: ['Focusing on the score', 'Focusing on the execution of the shot rather than the result', 'Ignoring the rules', 'Thinking about the trophy'],
+    correctAnswer: 1,
+    explanation: 'Focusing on the process reduces pressure and leads to more consistent, high-quality shots.'
+  },
+  {
+    id: 'q235',
+    question: 'What is "Visualization"?',
+    options: ['Watching TV', 'Mentally rehearsing the perfect shot process', 'Looking at the target', 'Dreaming about winning'],
+    correctAnswer: 1,
+    explanation: 'Mental rehearsal reinforces the neural pathways needed for successful execution.'
+  },
+  {
+    id: 'q236',
+    question: 'How do you handle a "Flyer"?',
+    options: ['Get angry', 'Analyze the cause calmly, then reset for the next shot', 'Quit the match', 'Change your sights immediately'],
+    correctAnswer: 1,
+    explanation: 'A flyer is just data; analyze it, learn from it, and move on immediately.'
+  },
+  {
+    id: 'q237',
+    question: 'What is the "Shot Routine"?',
+    options: ['Cleaning the pistol', 'A consistent sequence of physical and mental steps for every shot', 'A workout plan', 'The score sheet'],
+    correctAnswer: 1,
+    explanation: 'A solid routine automates the process and provides a sense of control under pressure.'
+  },
+  {
+    id: 'q238',
+    question: 'What is the "Mindfulness" in shooting?',
+    options: ['Thinking about your score', 'Being fully present and focused on the current moment', 'Worrying about the next match', 'Remembering your last mistake'],
+    correctAnswer: 1,
+    explanation: 'Mindfulness helps the shooter stay in the "now" and avoid distractions.'
+  },
+  {
+    id: 'q239',
+    question: 'What is the "Flow State"?',
+    options: ['A state of effortless focus and peak performance', 'Drinking water', 'Moving between firing points', 'The wind blowing'],
+    correctAnswer: 0,
+    explanation: 'Flow is the "zone" where execution becomes intuitive and automatic.'
+  },
+  {
+    id: 'q240',
+    question: 'How does hydration affect shooting?',
+    options: ['It doesn\'t', 'Improves concentration and reduces muscle tremors', 'Makes you fire faster', 'Changes the sight alignment'],
+    correctAnswer: 1,
+    explanation: 'Even mild dehydration can significantly degrade fine motor control and focus.'
+  },
+  {
+    id: 'q241',
+    question: 'How does caffeine affect most shooters?',
+    options: ['Improves focus', 'Increases heart rate and can cause tremors', 'Makes them stronger', 'No effect'],
+    correctAnswer: 1,
+    explanation: 'While it may improve alertness, caffeine often increases the "wobble" and heart rate.'
+  },
+  {
+    id: 'q242',
+    question: 'Why is core strength important for shooters?',
+    options: ['To look good', 'Provides a stable platform and reduces body sway', 'To lift heavy weights', 'To breathe faster'],
+    correctAnswer: 1,
+    explanation: 'A strong core is essential for maintaining a consistent, upright posture during the hold.'
+  },
+  {
+    id: 'q243',
+    question: 'What is the benefit of cardiovascular exercise?',
+    options: ['Lower resting heart rate', 'Bigger muscles', 'Faster running', 'Better hearing'],
+    correctAnswer: 0,
+    explanation: 'A lower heart rate means fewer "heartbeat jumps" during the stability window.'
+  },
+  {
+    id: 'q244',
+    question: 'Why is stretching important?',
+    options: ['To get taller', 'Prevents stiffness and helps maintain a relaxed posture', 'To fire better next time', 'It isn\'t important'],
+    correctAnswer: 1,
+    explanation: 'Shooting involves static tension; stretching helps muscles recover and stay flexible.'
+  },
+  {
+    id: 'q245',
+    question: 'What is the "Hold Endurance" training?',
+    options: ['Holding the pistol for 5 seconds', 'Holding the pistol for longer than a normal shot to build strength', 'Holding the pistol with two hands', 'Holding the pistol while running'],
+    correctAnswer: 1,
+    explanation: 'Hold endurance builds the specific muscles needed for a stable 60-shot match.'
+  },
+  {
+    id: 'q246',
+    question: 'What is the "1.5x Rule" in training?',
+    options: ['Firing 1.5x more shots', 'Training with a weight 1.5x heavier than the pistol', 'Resting 1.5x longer than you shoot', 'Aiming for 1.5x the score'],
+    correctAnswer: 1,
+    explanation: 'Training with a slightly heavier weight (or longer holds) makes the competition pistol feel lighter and more stable.'
+  },
+  {
+    id: 'q247',
+    question: 'What is the maximum weight for an Olympic Air Pistol?',
+    options: ['1.0 kg', '1.5 kg', '2.0 kg', 'No limit'],
+    correctAnswer: 1,
+    explanation: 'ISSF rules limit the total weight of the pistol (including accessories) to 1.5 kg.'
+  },
+  {
+    id: 'q248',
+    question: 'What is the minimum trigger weight for Air Pistol?',
+    options: ['250g', '500g', '1000g', 'No limit'],
+    correctAnswer: 1,
+    explanation: 'The trigger must be able to support a 500g weight without firing.'
+  },
+  {
+    id: 'q249',
+    question: 'What is the standard distance for Air Pistol?',
+    options: ['5 meters', '10 meters', '25 meters', '50 meters'],
+    correctAnswer: 1,
+    explanation: 'Olympic Air Pistol is fired at a distance of 10 meters.'
+  },
+  {
+    id: 'q250',
+    question: 'What caliber is used in standard Air Pistol?',
+    options: ['.177 (4.5mm)', '.22 (5.5mm)', '.25 (6.35mm)', '9mm'],
+    correctAnswer: 0,
+    explanation: '.177 caliber (4.5mm) lead pellets are the universal standard for air pistol.'
+  },
+  {
+    id: 'q251',
+    question: 'How many shots are in a standard qualification match?',
+    options: ['30', '40', '60', '100'],
+    correctAnswer: 2,
+    explanation: 'Both men and women fire 60 shots in the qualification round of Olympic Air Pistol.'
+  },
+  {
+    id: 'q252',
+    question: 'What is the time limit for a 60-shot match (electronic targets)?',
+    options: ['60 minutes', '75 minutes', '90 minutes', '120 minutes'],
+    correctAnswer: 1,
+    explanation: '75 minutes is the standard time limit for 60 shots on electronic targets.'
+  },
+  {
+    id: 'q253',
+    question: 'What is the highest score possible for a single shot (decimal)?',
+    options: ['10', '10.5', '10.9', '11'],
+    correctAnswer: 2,
+    explanation: '10.9 is a perfect center hit on an electronic target.'
+  },
+  {
+    id: 'q254',
+    question: 'What happens if you fire before the "Start" command?',
+    options: ['Nothing', 'The shot is disqualified (scored as zero)', 'You are disqualified from the match', 'You get a warning'],
+    correctAnswer: 1,
+    explanation: 'Any shot fired before the official start command is recorded as a zero.'
+  },
+  {
+    id: 'q255',
+    question: 'What is the "Load" command?',
+    options: ['Put your gear on the bench', 'Insert a pellet into the breech', 'Pick up the pistol', 'Start firing'],
+    correctAnswer: 1,
+    explanation: 'The "Load" command allows shooters to prepare their first shot.'
+  },
+  {
+    id: 'q256',
+    question: 'What is the "Cease Fire" command?',
+    options: ['Stop shooting immediately', 'Finish your current shot', 'Unload your pistol', 'Leave the range'],
+    correctAnswer: 0,
+    explanation: ' "Cease Fire" (or "Unload") means all firing must stop instantly for safety.'
+  },
+  {
+    id: 'q257',
+    question: 'What is a "Safety Flag" (CBI)?',
+    options: ['A flag on the range', 'A plastic insert that shows the barrel is empty', 'A red hat', 'A warning sign'],
+    correctAnswer: 1,
+    explanation: 'A CBI (Clear Barrel Indicator) is mandatory whenever the pistol is not in use on the line.'
+  },
+  {
+    id: 'q258',
+    question: 'Where should the muzzle ALWAYS be pointed?',
+    options: ['At the floor', 'At the ceiling', 'Downrange or in a safe direction', 'At your feet'],
+    correctAnswer: 2,
+    explanation: 'Muzzle awareness is the most fundamental rule of firearm safety.'
+  },
+  {
+    id: 'q259',
+    question: 'Can you handle a pistol when someone is downrange?',
+    options: ['Yes, if it\'s unloaded', 'Yes, if the action is open', 'No, never', 'Only if the RO says so'],
+    correctAnswer: 2,
+    explanation: 'Handling any firearm while people are downrange is strictly prohibited.'
+  },
+  {
+    id: 'q260',
+    question: 'What is the first thing you do when picking up a pistol?',
+    options: ['Check if it\'s loaded', 'Point it in a safe direction and check the action', 'Pull the trigger', 'Adjust the sights'],
+    correctAnswer: 1,
+    explanation: 'Always verify the safety status of any firearm immediately upon handling it.'
+  },
+  {
+    id: 'q261',
+    question: 'What is "Proprioception" in shooting?',
+    options: ['The sense of the relative position of body parts', 'The speed of the pellet', 'The weight of the pistol', 'The color of the target'],
+    correctAnswer: 0,
+    explanation: 'Proprioception is vital for maintaining a consistent stance and grip without looking.'
+  },
+  {
+    id: 'q262',
+    question: 'What is the "Balance of the Pistol"?',
+    options: ['The total weight', 'The distribution of weight (center of gravity)', 'The cost of the pistol', 'The size of the grip'],
+    correctAnswer: 1,
+    explanation: 'A well-balanced pistol reduces muscle strain and improves stability.'
+  },
+  {
+    id: 'q263',
+    question: 'What are "Counterweights"?',
+    options: ['Weights used to balance the pistol', 'The other shooters', 'The score sheet', 'The air cylinder'],
+    correctAnswer: 0,
+    explanation: 'Counterweights can be added to the barrel or frame to customize the pistol\'s balance.'
+  },
+  {
+    id: 'q264',
+    question: 'What is "Barrel Time"?',
+    options: ['How long it takes to clean the barrel', 'The time the pellet spends inside the barrel after the shot breaks', 'The age of the barrel', 'The length of the barrel'],
+    correctAnswer: 1,
+    explanation: 'A shorter barrel time reduces the chance of the shooter disturbing the shot after the break.'
+  },
+  {
+    id: 'q265',
+    question: 'What is "Muzzle Jump"?',
+    options: ['The pistol falling', 'The upward movement of the muzzle during the shot', 'The pellet jumping', 'The shooter jumping'],
+    correctAnswer: 1,
+    explanation: 'Minimizing muzzle jump through proper grip and compensators improves follow-through.'
   }
 ];
 
@@ -1676,8 +2026,7 @@ export const DRILLS: Drill[] = [
       'Repeat 20 times per set.'
     ],
     targetSuccess: 95,
-    imageUrl: '/assets/wall-hold.png',
-    videoUrl: 'https://www.youtube.com/embed/Akv-el7m2l4'
+    imageUrl: '/assets/wall-hold.png'
   },
   {
     id: 'drill-2',
@@ -1694,8 +2043,7 @@ export const DRILLS: Drill[] = [
       'Rest for 60 seconds and repeat for 10-15 sets.'
     ],
     targetSuccess: 90,
-    imageUrl: '/assets/wall-hold.png',
-    videoUrl: 'https://www.youtube.com/embed/cQdNVRz7hOs'
+    imageUrl: '/assets/wall-hold.png'
   },
   {
     id: 'drill-3',
@@ -1713,8 +2061,7 @@ export const DRILLS: Drill[] = [
       'Repeat 20 times.'
     ],
     targetSuccess: 90,
-    imageUrl: '/assets/hold-compare.png',
-    videoUrl: 'https://www.youtube.com/embed/bA5bwWR8Hn0'
+    imageUrl: '/assets/grip.png'
   },
   {
     id: 'drill-4',
@@ -1730,8 +2077,7 @@ export const DRILLS: Drill[] = [
       'Goal: 10 consecutive "still" releases.'
     ],
     targetSuccess: 90,
-    imageUrl: '/assets/prepare-for-shot.png',
-    videoUrl: 'https://www.youtube.com/embed/Akv-el7m2l4'
+    imageUrl: '/assets/sight-picture.png'
   },
   {
     id: 'drill-5',
@@ -1747,8 +2093,7 @@ export const DRILLS: Drill[] = [
       'Repeat 15 times.'
     ],
     targetSuccess: 85,
-    imageUrl: '/assets/prepare-for-shot.png',
-    videoUrl: 'https://www.youtube.com/embed/cQdNVRz7hOs'
+    imageUrl: '/assets/sight-picture.png'
   },
   {
     id: 'drill-6',
@@ -1766,8 +2111,7 @@ export const DRILLS: Drill[] = [
       'Repeat 20 times per set.'
     ],
     targetSuccess: 90,
-    imageUrl: '/assets/grip.png',
-    videoUrl: 'https://www.youtube.com/embed/Akv-el7m2l4'
+    imageUrl: '/assets/sight-picture.png'
   },
   {
     id: 'drill-7',
@@ -1783,8 +2127,7 @@ export const DRILLS: Drill[] = [
       'Repeat 10 times, focusing on consistent hand placement.'
     ],
     targetSuccess: 90,
-    imageUrl: '/assets/stance.png',
-    videoUrl: 'https://www.youtube.com/embed/cD7vNhLh9ao'
+    imageUrl: '/assets/stance.png'
   },
   {
     id: 'drill-8',
@@ -1800,8 +2143,7 @@ export const DRILLS: Drill[] = [
       'Repeat 20 times, aiming for zero movement of the front sight.'
     ],
     targetSuccess: 95,
-    imageUrl: '/assets/sight-alignment.png',
-    videoUrl: 'https://www.youtube.com/embed/Y7Rzoh4su08'
+    imageUrl: '/assets/sight-picture.png'
   },
   {
     id: 'drill-9',
@@ -1818,8 +2160,7 @@ export const DRILLS: Drill[] = [
       'Repeat 15 times.'
     ],
     targetSuccess: 90,
-    imageUrl: '/assets/prepare-for-shot.png',
-    videoUrl: 'https://www.youtube.com/embed/x8aRU-6Io9U'
+    imageUrl: '/assets/prepare-for-shot.png'
   },
   {
     id: 'drill-10',
@@ -1835,8 +2176,7 @@ export const DRILLS: Drill[] = [
       'Repeat 20 times, dry fire.'
     ],
     targetSuccess: 95,
-    imageUrl: '/assets/grip.png',
-    videoUrl: 'https://www.youtube.com/embed/Akv-el7m2l4'
+    imageUrl: '/assets/grip.png'
   },
   {
     id: 'drill-11',
@@ -1852,8 +2192,7 @@ export const DRILLS: Drill[] = [
       'Repeat 20 times.'
     ],
     targetSuccess: 90,
-    imageUrl: '/assets/prepare-for-shot.png',
-    videoUrl: 'https://www.youtube.com/embed/oJsghHd_wbY'
+    imageUrl: '/assets/prepare-for-shot.png'
   },
   {
     id: 'drill-12',
@@ -1869,8 +2208,7 @@ export const DRILLS: Drill[] = [
       'Perform this 5 times before starting your physical practice.'
     ],
     targetSuccess: 100,
-    imageUrl: '/assets/prepare-for-shot.png',
-    videoUrl: 'https://www.youtube.com/embed/Q2NCbuBzEAs'
+    imageUrl: '/assets/prepare-for-shot.png'
   },
   {
     id: 'drill-13',
@@ -1886,8 +2224,7 @@ export const DRILLS: Drill[] = [
       'Total time: 15-20 minutes.'
     ],
     targetSuccess: 95,
-    imageUrl: '/assets/wall-hold.png',
-    videoUrl: 'https://www.youtube.com/embed/Akv-el7m2l4'
+    imageUrl: '/assets/wall-hold.png'
   },
   {
     id: 'drill-14',
@@ -1903,8 +2240,7 @@ export const DRILLS: Drill[] = [
       'Repeat the 5 dry / 1 live cycle 5 times.'
     ],
     targetSuccess: 85,
-    imageUrl: '/assets/hat-technique.png',
-    videoUrl: 'https://www.youtube.com/embed/cD7vNhLh9ao'
+    imageUrl: '/assets/prepare-for-shot.png'
   },
   {
     id: 'drill-15',
@@ -1926,8 +2262,7 @@ export const DRILLS: Drill[] = [
       incorrect: 'Jerking the trigger as the sights approach the center, causing the front sight to jump or dip.'
     },
     targetSuccess: 90,
-    imageUrl: '/assets/sight-picture.png',
-    videoUrl: 'https://www.youtube.com/embed/Akv-el7m2l4'
+    imageUrl: '/assets/sight-picture.png'
   },
   {
     id: 'drill-16',
@@ -1947,8 +2282,7 @@ export const DRILLS: Drill[] = [
       incorrect: 'Knuckles move, tighten, or "pulse" when the trigger is pulled. This is "milking" and disturbs sight alignment.'
     },
     targetSuccess: 90,
-    imageUrl: '/assets/grip.png',
-    videoUrl: 'https://www.youtube.com/embed/bA5bwWR8Hn0'
+    imageUrl: '/assets/grip.png'
   },
   {
     id: 'drill-17',
@@ -1969,7 +2303,66 @@ export const DRILLS: Drill[] = [
       incorrect: 'The aiming point drifts outside the center area or shows erratic, jerky movements.'
     },
     targetSuccess: 95,
-    imageUrl: '/assets/sight-picture.png',
-    videoUrl: 'https://www.youtube.com/embed/Akv-el7m2l4'
+    imageUrl: '/assets/stability.png'
+  },
+  {
+    id: 'drill-18',
+    title: 'Respiratory Pause Mastery',
+    description: 'Learn to stabilize your hold during the natural pause after exhalation.',
+    type: 'Stability',
+    difficulty: 'Intermediate',
+    steps: [
+      'Lift pistol while inhaling deeply.',
+      'Lower to target while exhaling halfway.',
+      'Hold the natural respiratory pause for 8-10 seconds.',
+      'Execute a dry fire shot during this window of maximum stability.',
+      'Abort the shot if the pause exceeds 12 seconds to avoid CO2 buildup.'
+    ],
+    visualCues: {
+      correct: 'Steady hold with minimal vertical movement during the pause.',
+      incorrect: 'Gasping or forced breath hold causing muscle tremors.'
+    },
+    targetSuccess: 90,
+    imageUrl: '/assets/prepare-for-shot.png'
+  },
+  {
+    id: 'drill-19',
+    title: 'Distraction Recovery',
+    description: 'Train your mind to reset after a sudden noise or distraction.',
+    type: 'Mental',
+    difficulty: 'Advanced',
+    steps: [
+      'Settle into the aiming area and begin your trigger prep.',
+      'Simulate a distraction (sudden noise or flash).',
+      'Immediately lower the pistol and step back from the line.',
+      'Take one deep "cleansing" breath and reset your mental state.',
+      'Re-lift and execute a perfect dry fire shot within 30 seconds.'
+    ],
+    visualCues: {
+      correct: 'Immediate, calm reset without signs of frustration or rushing.',
+      incorrect: 'Attempting to "power through" the distraction and rushing the shot.'
+    },
+    targetSuccess: 85,
+    imageUrl: '/assets/prepare-for-shot.png'
+  },
+  {
+    id: 'drill-20',
+    title: 'Pistol Deep Clean & Inspection',
+    description: 'Ensure your equipment is in peak condition for competition.',
+    type: 'Maintenance',
+    difficulty: 'Beginner',
+    steps: [
+      'Check the air cylinder expiry date (must be within 10 years).',
+      'Clean the barrel using dry felt pellets.',
+      'Inspect the grip for any loose screws or cracks.',
+      'Verify trigger weight using a standard 500g weight.',
+      'Check the sights for any debris or loose adjustment clicks.'
+    ],
+    visualCues: {
+      correct: 'Smooth trigger action and crisp, clean sight picture.',
+      incorrect: 'Loose grip screws or debris in the rear sight notch.'
+    },
+    targetSuccess: 100,
+    imageUrl: '/assets/grip.png'
   }
 ];

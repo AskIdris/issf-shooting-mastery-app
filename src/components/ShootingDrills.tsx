@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Play, CheckCircle2, History, ChevronRight, X, Save, TrendingUp, Activity } from 'lucide-react';
+import { Eye, CheckCircle2, History, ChevronRight, X, Save, TrendingUp, Activity } from 'lucide-react';
 import { Drill, DrillAttempt } from '../types';
 import { DRILLS } from '../constants';
 import { cn } from '../lib/utils';
@@ -215,8 +215,147 @@ function GripPressureSimulator() {
   );
 }
 
+function BreathingSimulator() {
+  const [phase, setPhase] = useState<'inhale' | 'exhale' | 'pause'>('inhale');
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    const cycle = () => {
+      if (phase === 'inhale') {
+        if (progress >= 100) {
+          setPhase('exhale');
+          setProgress(0);
+        } else {
+          setProgress(prev => prev + 2);
+        }
+      } else if (phase === 'exhale') {
+        if (progress >= 50) {
+          setPhase('pause');
+          setProgress(0);
+        } else {
+          setProgress(prev => prev + 2);
+        }
+      } else if (phase === 'pause') {
+        if (progress >= 100) {
+          setPhase('inhale');
+          setProgress(0);
+        } else {
+          setProgress(prev => prev + 1);
+        }
+      }
+    };
+
+    interval = setInterval(cycle, 50);
+    return () => clearInterval(interval);
+  }, [phase, progress]);
+
+  return (
+    <div className="space-y-6 bg-gray-900 p-6 rounded-3xl border border-gray-800 shadow-2xl">
+      <div className="flex items-center justify-between">
+        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
+          <Activity size={14} className="text-shooting-blue" />
+          Breathing Cycle Simulator
+        </h4>
+      </div>
+
+      <div className="flex flex-col items-center gap-6">
+        <div className="relative w-32 h-32 flex items-center justify-center">
+          <motion.div 
+            className="absolute inset-0 bg-shooting-blue/20 rounded-full"
+            animate={{ 
+              scale: phase === 'inhale' ? 1.2 : phase === 'exhale' ? 0.8 : 0.8,
+              opacity: phase === 'pause' ? 0.5 : 0.2
+            }}
+          />
+          <div className="text-center z-10">
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Phase</p>
+            <p className="text-lg font-black text-white uppercase">{phase}</p>
+          </div>
+          
+          {/* Progress Ring */}
+          <svg className="absolute inset-0 w-full h-full -rotate-90">
+            <circle
+              cx="64"
+              cy="64"
+              r="60"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="4"
+              className="text-gray-800"
+            />
+            <motion.circle
+              cx="64"
+              cy="64"
+              r="60"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="4"
+              strokeDasharray="377"
+              animate={{ strokeDashoffset: 377 - (377 * progress) / 100 }}
+              className="text-shooting-blue"
+            />
+          </svg>
+        </div>
+
+        <div className="w-full space-y-2">
+          <div className="flex justify-between text-[10px] font-bold text-gray-500 uppercase">
+            <span>Stability Window</span>
+            <span className={cn(phase === 'pause' ? "text-green-500" : "text-gray-600")}>
+              {phase === 'pause' ? "OPTIMAL" : "WAIT..."}
+            </span>
+          </div>
+          <div className="h-2 w-full bg-gray-800 rounded-full overflow-hidden">
+            <motion.div 
+              className={cn("h-full", phase === 'pause' ? "bg-green-500" : "bg-shooting-blue")}
+              animate={{ width: phase === 'pause' ? `${progress}%` : '0%' }}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MaintenanceChecklist() {
+  const [checks, setChecks] = useState({
+    cylinder: false,
+    barrel: false,
+    grip: false,
+    trigger: false,
+    sights: false
+  });
+
+  const toggle = (key: keyof typeof checks) => {
+    setChecks(prev => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  return (
+    <div className="space-y-4 bg-gray-50 p-6 rounded-3xl border border-gray-100">
+      <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest">Inspection Checklist</h4>
+      <div className="space-y-2">
+        {Object.entries(checks).map(([key, val]) => (
+          <button
+            key={key}
+            onClick={() => toggle(key as any)}
+            className={cn(
+              "w-full flex items-center justify-between p-3 rounded-xl border transition-all",
+              val ? "bg-green-50 border-green-200 text-green-700" : "bg-white border-gray-100 text-gray-600"
+            )}
+          >
+            <span className="text-sm font-medium capitalize">{key} Inspection</span>
+            {val ? <CheckCircle2 size={18} /> : <div className="w-[18px] h-[18px] rounded-full border-2 border-gray-200" />}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function ShootingDrills() {
   const [selectedDrill, setSelectedDrill] = useState<Drill | null>(null);
+  const [timer, setTimer] = useState(0);
+  const [isTimerActive, setIsTimerActive] = useState(false);
   const [attempts, setAttempts] = useState<DrillAttempt[]>([]);
   const [isLogging, setIsLogging] = useState(false);
   const [filter, setFilter] = useState<'All' | 'Beginner' | 'Intermediate' | 'Advanced'>('All');
@@ -230,6 +369,31 @@ export default function ShootingDrills() {
     const saved = localStorage.getItem('drill_attempts');
     if (saved) setAttempts(JSON.parse(saved));
   }, []);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+    if (selectedDrill && isTimerActive) {
+      interval = setInterval(() => {
+        setTimer((prev) => prev + 1);
+      }, 1000);
+    } else {
+      if (interval) clearInterval(interval);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [selectedDrill, isTimerActive]);
+
+  useEffect(() => {
+    setTimer(0);
+    setIsTimerActive(!!selectedDrill);
+  }, [selectedDrill]);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   const addAttempt = async (attempt: DrillAttempt) => {
     const updated = [attempt, ...attempts];
@@ -258,7 +422,7 @@ export default function ShootingDrills() {
         
         await awardPoints(points);
       } catch (error) {
-        console.error("Failed to save drill attempt to Firebase:", error);
+        handleFirestoreError(error, OperationType.WRITE, 'drill_attempts');
       }
     }
   };
@@ -306,34 +470,55 @@ export default function ShootingDrills() {
         
         {/* Filter Pills */}
         <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
-          {['All', 'Beginner', 'Intermediate', 'Advanced'].map((level) => (
-            <button
-              key={level}
-              onClick={() => setFilter(level as any)}
-              className={cn(
-                "px-4 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap border",
-                filter === level 
-                  ? "bg-shooting-black text-white border-shooting-black" 
-                  : "bg-white text-gray-500 border-gray-100 hover:border-gray-200"
-              )}
-            >
-              {level}
-            </button>
-          ))}
+          {['All', 'Beginner', 'Intermediate', 'Advanced'].map((level) => {
+            const count = level === 'All' 
+              ? DRILLS.length 
+              : DRILLS.filter(d => d.difficulty === level).length;
+            
+            return (
+              <button
+                key={level}
+                onClick={() => setFilter(level as any)}
+                className={cn(
+                  "px-4 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap border flex items-center gap-2",
+                  filter === level 
+                    ? "bg-shooting-black text-white border-shooting-black shadow-md" 
+                    : "bg-white text-gray-500 border-gray-100 hover:border-gray-200"
+                )}
+              >
+                {level}
+                <span className={cn(
+                  "px-1.5 py-0.5 rounded-full text-[10px]",
+                  filter === level ? "bg-white/20 text-white" : "bg-gray-100 text-gray-400"
+                )}>
+                  {count}
+                </span>
+              </button>
+            );
+          })}
         </div>
       </header>
 
-      <div className="grid gap-4">
-        {filteredDrills.map(drill => {
-          const avg = getAvgSuccess(drill.id);
-          const isTargetMet = drill.targetSuccess && avg >= drill.targetSuccess;
-          
-          return (
-            <motion.div
-              key={drill.id}
-              layoutId={drill.id}
-              className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden"
-            >
+      <motion.div 
+        layout
+        className="grid gap-4"
+      >
+        <AnimatePresence mode="popLayout">
+          {filteredDrills.map(drill => {
+            const avg = getAvgSuccess(drill.id);
+            const isTargetMet = drill.targetSuccess && avg >= drill.targetSuccess;
+            
+            return (
+              <motion.div
+                key={drill.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.2 }}
+                className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer hover:border-shooting-black/20 transition-colors"
+                onClick={() => setSelectedDrill(drill)}
+              >
               <div className="p-5 flex items-center justify-between">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
@@ -447,18 +632,23 @@ export default function ShootingDrills() {
                   onClick={() => setSelectedDrill(drill)}
                   className="w-10 h-10 rounded-full bg-shooting-blue/10 text-shooting-blue flex items-center justify-center hover:bg-shooting-blue hover:text-white transition-all"
                 >
-                  <Play size={18} fill="currentColor" />
+                  <Eye size={18} />
                 </button>
               </div>
             </motion.div>
           );
         })}
         {filteredDrills.length === 0 && (
-          <div className="text-center py-12 text-gray-400">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-12 text-gray-400"
+          >
             No drills found for this difficulty level.
-          </div>
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
+    </motion.div>
 
       {/* Drill Detail Modal */}
       <AnimatePresence>
@@ -485,6 +675,42 @@ export default function ShootingDrills() {
               </div>
               
               <div className="p-8 overflow-y-auto space-y-8">
+                {/* Prominent Timer Display */}
+                <div className="relative">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-shooting-red text-white text-[8px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full z-20 shadow-lg">
+                    Live Session
+                  </div>
+                  <div className="bg-gradient-to-br from-shooting-black to-gray-800 text-white p-8 rounded-[2rem] flex flex-col items-center justify-center gap-1 shadow-2xl border border-white/10 relative overflow-hidden">
+                    {/* Decorative background element */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-shooting-blue/10 rounded-full blur-3xl -mr-16 -mt-16" />
+                    
+                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em] mb-1">Elapsed Time</span>
+                    <div className="text-6xl font-mono font-black tracking-tighter tabular-nums text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">
+                      {formatTime(timer)}
+                    </div>
+                    
+                    <div className="flex gap-4 mt-6 w-full max-w-[240px]">
+                      <button 
+                        onClick={() => setIsTimerActive(!isTimerActive)}
+                        className={cn(
+                          "flex-1 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all shadow-lg active:scale-95",
+                          isTimerActive 
+                            ? "bg-white/10 text-white border border-white/20 hover:bg-white/20" 
+                            : "bg-shooting-blue text-white shadow-shooting-blue/20"
+                        )}
+                      >
+                        {isTimerActive ? "Pause" : "Resume"}
+                      </button>
+                      <button 
+                        onClick={() => setTimer(0)}
+                        className="flex-1 py-3 rounded-2xl bg-gray-900 text-gray-500 text-[10px] font-black uppercase tracking-widest hover:text-white transition-all border border-gray-800 active:scale-95"
+                      >
+                        Reset
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="space-y-2">
                   <h3 className="text-2xl font-bold tracking-tight">{selectedDrill.title}</h3>
                   <p className="text-gray-500">{selectedDrill.description}</p>
@@ -524,22 +750,6 @@ export default function ShootingDrills() {
                   </div>
                 </div>
 
-                {/* Video Demonstration */}
-                {selectedDrill.videoUrl && (
-                  <div className="space-y-4">
-                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest">Video Demonstration</h4>
-                    <div className="aspect-video w-full bg-black rounded-2xl overflow-hidden shadow-inner relative group border border-gray-100">
-                      <iframe
-                        src={selectedDrill.videoUrl}
-                        title={selectedDrill.title}
-                        className="w-full h-full border-0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
-                  </div>
-                )}
-
                 {/* Technical Image */}
                 {selectedDrill.imageUrl && (
                   <div className="space-y-4">
@@ -563,6 +773,16 @@ export default function ShootingDrills() {
                 {/* Grip Pressure Simulator for Grip Consistency Drill */}
                 {selectedDrill.id === 'drill-16' && (
                   <GripPressureSimulator />
+                )}
+
+                {/* Breathing Simulator for Respiratory Pause Drill */}
+                {selectedDrill.id === 'drill-18' && (
+                  <BreathingSimulator />
+                )}
+
+                {/* Maintenance Checklist for Equipment Drill */}
+                {selectedDrill.id === 'drill-20' && (
+                  <MaintenanceChecklist />
                 )}
 
                 <div className="space-y-4">

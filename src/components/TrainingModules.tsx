@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { BookOpen, ChevronRight, CheckCircle2, PlayCircle } from 'lucide-react';
+import { BookOpen, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { TrainingModule } from '../types';
 import { cn } from '../lib/utils';
 
@@ -38,7 +38,7 @@ export default function TrainingModules({ modules }: { modules: TrainingModule[]
                     <p className="text-sm text-gray-500 line-clamp-1">{module.description}</p>
                   </div>
                   <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-300 group-hover:bg-shooting-blue/10 group-hover:text-shooting-blue transition-all">
-                    <PlayCircle size={20} />
+                    <BookOpen size={20} />
                   </div>
                 </motion.button>
               ))}
@@ -87,20 +87,6 @@ export default function TrainingModules({ modules }: { modules: TrainingModule[]
                   </div>
                 )}
                 
-                {selectedModule.videoUrl && (
-                  <div className="space-y-4">
-                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest">Video Demonstration</h4>
-                    <div className="aspect-video w-full bg-black rounded-2xl overflow-hidden shadow-inner relative group">
-                      <iframe
-                        src={selectedModule.videoUrl}
-                        title={selectedModule.title}
-                        className="w-full h-full border-0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
-                  </div>
-                )}
                 <h2 className="text-2xl font-bold tracking-tight">{selectedModule.title}</h2>
                 <div className="prose prose-slate max-w-none">
                   <p className="text-gray-600 leading-relaxed text-lg">

@@ -30,7 +30,7 @@ export interface Drill {
   title: string;
   description: string;
   steps: string[];
-  type: 'Dry Fire' | 'Live Fire' | 'Timed' | 'Stability' | 'Grip' | 'Trigger Control';
+  type: 'Dry Fire' | 'Live Fire' | 'Timed' | 'Stability' | 'Grip' | 'Trigger Control' | 'Mental' | 'Maintenance';
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
   targetSuccess?: number; // e.g., 90%
   imageUrl?: string;

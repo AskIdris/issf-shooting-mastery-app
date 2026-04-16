@@ -61,6 +61,12 @@ function AppContent() {
     localStorage.setItem('shooting_sessions', JSON.stringify(updated));
   };
 
+  const updateSession = (updatedSession: TrainingSession) => {
+    const updated = sessions.map(s => s.id === updatedSession.id ? updatedSession : s);
+    setSessions(updated);
+    localStorage.setItem('shooting_sessions', JSON.stringify(updated));
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-[#F5F5F7] text-[#1A1A1A] font-sans">
       {/* Header with User Profile */}
@@ -112,7 +118,7 @@ function AppContent() {
             <Route path="/drills" element={<ShootingDrills />} />
             <Route path="/guide" element={<VisualGuide />} />
             <Route path="/science" element={<ScienceHub />} />
-            <Route path="/tracker" element={<PerformanceTracker sessions={sessions} onAddSession={addSession} />} />
+            <Route path="/tracker" element={<PerformanceTracker sessions={sessions} onAddSession={addSession} onUpdateSession={updateSession} />} />
             <Route path="/quiz" element={<QuizSection quizzes={QUIZZES} />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
           </Routes>

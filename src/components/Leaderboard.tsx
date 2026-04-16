@@ -24,7 +24,7 @@ export default function Leaderboard() {
         const users = snapshot.docs.map(doc => doc.data() as UserProfile);
         setLeaders(users);
       }, (error) => {
-        console.error("Leaderboard snapshot error:", error);
+        handleFirestoreError(error, OperationType.LIST, 'users');
       });
 
       return () => unsubscribe();

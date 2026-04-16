@@ -4,10 +4,10 @@ import { ClipboardCheck, CheckCircle2, XCircle, ArrowRight, RotateCcw, Award } f
 import { QuizQuestion } from '../types';
 import { cn } from '../lib/utils';
 import { useAuth } from '../context/AuthContext';
-import { db, POINTS } from '../firebase';
+import { db, POINTS, handleFirestoreError, OperationType } from '../firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 
-const QUESTIONS_PER_SESSION = 10;
+const QUESTIONS_PER_SESSION_DEFAULT = 10;
 
 export default function QuizSection({ quizzes }: { quizzes: QuizQuestion[] }) {
   const [activeQuizzes, setActiveQuizzes] = useState<QuizQuestion[]>([]);
@@ -16,13 +16,22 @@ export default function QuizSection({ quizzes }: { quizzes: QuizQuestion[] }) {
   const [isAnswered, setIsAnswered] = useState(false);
   const [score, setScore] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
+  const [sessionLength, setSessionLength] = useState(20);
+  const [isStarted, setIsStarted] = useState(false);
   const { user, awardPoints } = useAuth();
 
   // Initialize and shuffle questions
   useEffect(() => {
-    const shuffled = [...quizzes].sort(() => Math.random() - 0.5);
-    setActiveQuizzes(shuffled.slice(0, QUESTIONS_PER_SESSION));
-  }, [quizzes]);
+    if (isStarted) {
+      const shuffled = [...quizzes].sort(() => Math.random() - 0.5);
+      setActiveQuizzes(shuffled.slice(0, sessionLength));
+      setCurrentIdx(0);
+      setSelectedOption(null);
+      setIsAnswered(false);
+      setScore(0);
+      setIsFinished(false);
+    }
+  }, [quizzes, isStarted, sessionLength]);
 
   const currentQuiz = activeQuizzes[currentIdx];
 
@@ -61,21 +70,54 @@ export default function QuizSection({ quizzes }: { quizzes: QuizQuestion[] }) {
           
           await awardPoints(pointsEarned);
         } catch (error) {
-          console.error('Failed to save quiz result:', error);
+          handleFirestoreError(error, OperationType.WRITE, 'quiz_results');
         }
       }
     }
   };
 
   const resetQuiz = () => {
-    const shuffled = [...quizzes].sort(() => Math.random() - 0.5);
-    setActiveQuizzes(shuffled.slice(0, QUESTIONS_PER_SESSION));
-    setCurrentIdx(0);
-    setSelectedOption(null);
-    setIsAnswered(false);
-    setScore(0);
+    setIsStarted(false);
     setIsFinished(false);
   };
+
+  if (!isStarted) {
+    return (
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="p-6 max-w-md mx-auto space-y-8 text-center"
+      >
+        <div className="space-y-2">
+          <div className="w-20 h-20 bg-shooting-blue/10 rounded-full flex items-center justify-center mx-auto text-shooting-blue">
+            <ClipboardCheck size={40} />
+          </div>
+          <h2 className="text-3xl font-bold">Ready to Test?</h2>
+          <p className="text-gray-500">Select your quiz length to begin.</p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          {[10, 25, 50, 100].map(len => (
+            <button
+              key={len}
+              onClick={() => {
+                setSessionLength(len);
+                setIsStarted(true);
+              }}
+              className="p-6 bg-white border border-gray-100 rounded-3xl hover:border-shooting-blue hover:bg-blue-50 transition-all group"
+            >
+              <p className="text-2xl font-black text-shooting-black group-hover:text-shooting-blue">{len}</p>
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Questions</p>
+            </button>
+          ))}
+        </div>
+
+        <p className="text-xs text-gray-400 italic">
+          Questions are randomly selected from a pool of {quizzes.length} technical items.
+        </p>
+      </motion.div>
+    );
+  }
 
   if (activeQuizzes.length === 0) return null;
 

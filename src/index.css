@@ -32,5 +32,13 @@
   .performance-zone-8 { @apply bg-shooting-bronze text-white; }
   .performance-zone-7 { @apply bg-shooting-black text-white; }
   .performance-zone-miss { @apply bg-shooting-red text-white; }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 

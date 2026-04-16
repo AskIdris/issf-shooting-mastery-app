@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Eye, Target, Wind, Hand, Move, Info, User, Footprints, Activity } from 'lucide-react';
+import { Eye, Target, Wind, Hand, Move, Info, User, Footprints, Activity, Box } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { PistolViewer, StanceViewer } from './ThreeDModels';
 
 export default function VisualGuide() {
   const [gripMode, setGripMode] = React.useState<'correct' | 'milking'>('correct');
@@ -211,14 +212,8 @@ export default function VisualGuide() {
               />
             </div>
           </div>
-          <img 
-            src="/assets/stance.png" 
-            alt="Olympic Stance" 
-            className="w-full max-w-[320px] rounded-2xl border border-gray-100 shadow-sm"
-            referrerPolicy="no-referrer"
-          />
-
           <div className="flex-1 space-y-4">
+            <StanceViewer />
             <div className="space-y-2">
               <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest">Key Principles</h4>
               <ul className="text-sm text-gray-600 space-y-2">
@@ -282,12 +277,6 @@ export default function VisualGuide() {
                 <text x="20" y="133" fontSize="7" fill="#b45309">40% Heel</text>
               </svg>
             </div>
-            <img 
-              src="/assets/stance-points.png" 
-              alt="Balance Points" 
-              className="w-full rounded-2xl border border-gray-100 shadow-sm"
-              referrerPolicy="no-referrer"
-            />
           </div>
         </div>
       </section>
@@ -568,16 +557,10 @@ export default function VisualGuide() {
                 </motion.div>
               )}
             </AnimatePresence>
-
-            <img 
-              src="/assets/grip.png" 
-              alt="Grip Mechanics" 
-              className="w-full rounded-2xl border border-gray-100 shadow-sm"
-              referrerPolicy="no-referrer"
-            />
           </div>
 
           <div className="space-y-4">
+            <PistolViewer />
             <div className="space-y-2">
               <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest">
                 {gripMode === 'correct' ? 'The 3-Point Pressure System' : 'The "Milking" Error'}
@@ -994,12 +977,6 @@ export default function VisualGuide() {
                 <text x="120" y="108" fontSize="6" fill="#64748b">SUB-SIX GAP</text>
               </svg>
             </div>
-            <img 
-              src="/assets/sight-picture.png" 
-              alt="Sight Picture" 
-              className="w-full rounded-2xl border border-gray-100 shadow-sm"
-              referrerPolicy="no-referrer"
-            />
           </div>
 
           <div className="space-y-4">
@@ -1210,12 +1187,6 @@ export default function VisualGuide() {
                 <text x="170" y="95" fontSize="6" fill="#64748b">STABILITY</text>
               </svg>
             </div>
-            <img 
-              src="/assets/progressive-overload.png" 
-              alt="Progressive Overload" 
-              className="w-full rounded-2xl border border-gray-100 shadow-sm"
-              referrerPolicy="no-referrer"
-            />
           </div>
         </div>
       </section>
@@ -1243,12 +1214,6 @@ export default function VisualGuide() {
           </div>
 
           <div className="relative h-48 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-center overflow-hidden">
-            <img 
-              src="/assets/pistol-arm-lifts.png" 
-              alt="Arm Lift Sequence" 
-              className="h-full w-full object-cover opacity-30 absolute"
-              referrerPolicy="no-referrer"
-            />
             {/* Animated Arm Lift Diagram */}
             <svg viewBox="0 0 400 200" className="w-full h-full relative z-10">
               <motion.g

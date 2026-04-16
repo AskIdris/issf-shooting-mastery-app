@@ -61,12 +61,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             level: 1,
             lastUpdated: Timestamp.now()
           };
-          setDoc(userRef, newProfile).catch(err => console.error("Failed to create profile:", err));
+          setDoc(userRef, newProfile).catch(err => {
+            handleFirestoreError(err, OperationType.WRITE, `users/${user.uid}`);
+          });
           setProfile(newProfile);
         }
         setLoading(false);
       }, (error) => {
-        console.error("Profile snapshot error:", error);
+        handleFirestoreError(error, OperationType.GET, `users/${user.uid}`);
         setLoading(false);
       });
 
@@ -108,7 +110,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         lastUpdated: Timestamp.now()
       });
     } catch (error) {
-      console.error("Failed to award points in Firebase:", error);
+      handleFirestoreError(error, OperationType.WRITE, `users/${user.uid}`);
     }
 
     // Show notification (still show it locally even if Firebase fails)
