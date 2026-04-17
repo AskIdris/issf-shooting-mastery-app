@@ -27,7 +27,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'The Wrist and Hand',
     description: 'Mastering wrist lock and hand tension for recoil control.',
     content: 'The wrist must be locked and firm to act as a solid extension of the arm. Any "play" in the wrist will result in inconsistent shot placement. This module covers the specific tension required in the hand and the importance of a straight wrist line from the forearm through the pistol.\n\nTechnical Breakdown:\n- Wrist Lock: The wrist should be "set" before the lift and remain immobile until follow-through is complete.\n- Straight Line: Align the barrel with the bones of the forearm to transmit recoil directly into the shoulder.\n- Handshake Tension: Use the same pressure you would for a firm, professional handshake.\n- Muscle Memory: Practice locking the wrist consistently during dry fire to ensure it becomes automatic during competition.',
-    imageUrl: 'public/assets/triggering.jpg',
+    imageUrl: '/assets/triggering.jpg',
     videoUrl: 'https://www.youtube.com/embed/oJsghHd_wbY'
   },
   {
@@ -36,7 +36,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'Natural Point of Aim (NPA)',
     description: 'Ensure your body is naturally aligned with the target.',
     content: 'Natural Point of Aim (NPA) is the position where your body naturally points when relaxed. To find it: 1. Close your eyes and lift the pistol. 2. Open your eyes. 3. If you aren\'t on target, move your feet, not your arm. This ensures you aren\'t using muscle tension to "hold" the pistol on target.\n\nNPA Refinement:\n- Vertical NPA: Adjust the distance between your feet to change the natural height of your arm.\n- Horizontal NPA: Pivot your entire stance around your lead foot to align with the bullseye.\n- Check and Re-check: Perform an NPA check before every series of shots.',
-    imageUrl: 'public/assets/npa.png',
+    imageUrl: '/assets/npa.png',
     videoUrl: 'https://www.youtube.com/embed/cD7vNhLh9ao'
   },
   {
@@ -54,7 +54,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'The Correct Sight Picture',
     description: 'How to position your aligned sights on the target.',
     content: 'The "Sight Picture" is where you place your aligned sights on the target. Use the "Sub-Six" hold: aim in the white area just below the black bullseye. This provides a clear, high-contrast reference point, preventing the "black-on-black" blurring that happens when aiming at the center.\n\nSight Picture Strategy:\n- The "Line of White": Maintain a thin strip of white between the top of your sights and the bottom of the bullseye for maximum contrast.\n- Area Aiming: Do not try to "pin" the sights to a single point. Accept the natural movement within the white area.\n- Contrast Advantage: Black sights on a white background are much easier for the eye to align than black sights on a black bullseye.',
-    imageUrl: '/public/assets/sight-picture.png',
+    imageUrl: '/assets/sight-picture.png',
     videoUrl: 'https://www.youtube.com/embed/Akv-el7m2l4'
   },
   {
@@ -89,7 +89,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'The Breathing Cycle',
     description: 'Sync your shot with your respiratory pause.',
     content: 'Proper breathing lowers your heart rate and stabilizes your platform. Take two deep, calming breaths during the lift. As you lower the pistol into the sub-six area, release half your breath and hold. This creates a "respiratory pause" where body movement is at its absolute minimum for 6-10 seconds.\n\nBreathing Mechanics:\n- Abdominal Breathing: Breathe from the diaphragm to avoid chest movement.\n- The Pause: The pause should be natural, not a forced "breath hold" which causes CO2 buildup and tremors.',
-    imageUrl: '/public/assets/pistol-arm-lifts.png',
+    imageUrl: '/assets/pistol-arm-lifts.png',
     videoUrl: 'https://www.youtube.com/embed/x8aRU-6Io9U'
   },
   {
@@ -98,7 +98,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'Smooth Execution',
     description: 'The "Surprise Break" method for perfect shots.',
     content: 'Trigger control is about applying smooth, constant pressure directly to the rear. The shot should "surprise" you when it breaks. If you try to "time" the shot when the sights look perfect, you will likely jerk the trigger and pull the shot off-center. \n\nComprehensive Details:\n- First Stage: Take up 60-80% of the trigger weight as you settle into the aiming area. This is the "prep" stage.\n- Second Stage: Apply a slow, continuous increase in pressure until the shot breaks. Avoid "poking" the trigger.\n- Straight Back: Ensure the pressure is perfectly parallel to the barrel. Any lateral movement will pull the front sight out of alignment.\n- The Surprise: If you know exactly when the shot will fire, you will flinch. Let the shot happen.',
-    imageUrl: 'public/assets/olympic-stance.png',
+    imageUrl: '/assets/olympic-stance.png',
     videoUrl: 'https://www.youtube.com/embed/Akv-el7m2l4'
   },
   {
@@ -107,7 +107,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'The Science of the 10-Ring',
     description: 'Key technical components identified by sports science.',
     content: 'Research identifies three pillars of a 10: 1. Aiming Accuracy (centering your movement), 2. Stability of Hold (minimizing movement), and 3. Timing of Trigger (releasing during peak stability). Aiming accuracy is often the most significant factor for elite performance.\n\nComprehensive Details:\n- Stability Window: Elite shooters release the shot within a 1.5-second window of maximum stability, usually 5-8 seconds into the hold.\n- Front Sight Focus: Eye tracking shows champions maintain 100% focus on the front sight for at least 2 seconds before the break.\n- Trigger Pull Dynamics: The speed of the trigger pull should be consistent. Science shows that "jerking" even slightly increases group size by 40%.\n- Natural Point of Aim: Scientific studies confirm that fighting your natural alignment leads to muscle fatigue and tremors.',
-    imageUrl: 'public/assets/mental prep.png',
+    imageUrl: '/assets/mental prep.png',
     videoUrl: 'https://www.youtube.com/embed/Akv-el7m2l4'
   },
   {
@@ -134,7 +134,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     title: 'Calling the Shot',
     description: 'The art of follow-through and mental snapshots.',
     content: 'Follow-through is maintaining your focus and position for 2 seconds after the shot fires. This allows you to "call the shot"—identifying exactly where the front sight was at the moment of ignition. This mental snapshot is the most valuable feedback tool for a shooter.\n\nFollow-Through Essentials:\n- Visual Snapshot: Keep your eyes on the front sight even after the shot breaks.\n- Physical Hold: Do not lower the pistol immediately; hold the position to ensure the pellet has fully cleared the barrel.\n- Mental Analysis: Ask yourself: "Where was the front sight when it fired?"\n- Recoil Management: Observe the natural movement of the sights during recoil to ensure it returns to the same point.',
-    imageUrl: 'public/assets/suprise break.png',
+    imageUrl: '/assets/suprise break.png',
     videoUrl: 'https://www.youtube.com/embed/oJsghHd_wbY'
   },
   {
