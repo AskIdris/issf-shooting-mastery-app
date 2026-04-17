@@ -55,8 +55,9 @@ export default function VisualGuide() {
       interval = setInterval(() => {
         setStabilityData(prev => {
           const base = prev.length > 0 ? prev[prev.length - 1] : 85;
-          const drift = (Math.random() - 0.45) * 4; 
-          const newVal = Math.max(40, Math.min(98, base + drift));
+          const weightPenalty = Math.abs(weightShift) * 15;
+          const drift = (Math.random() - 0.5) * 4 - (weightPenalty / 5); 
+          const newVal = Math.max(30, Math.min(98, base + drift - (weightPenalty / 20)));
           return [...prev, newVal].slice(-50);
         });
       }, 200);
@@ -91,30 +92,45 @@ export default function VisualGuide() {
   }, [isDrillActive]);
 
   // Trigger simulation logic
+  const [triggerTimer, setTriggerTimer] = React.useState(0);
+  const pressureRef = React.useRef(0);
+  const timerRef = React.useRef(0);
+  
   React.useEffect(() => {
     let interval: any;
     if (isPressing) {
       interval = setInterval(() => {
-        setTriggerPressure(prev => {
-          const next = prev + 2;
-          if (next >= 100) {
-            // Shot breaks!
-            const jerk = prev > 80 ? 0 : (80 - prev) / 2; // Jerk if pressed too fast
-            setLastShot({ 
-              x: (Math.random() - 0.5) * 5 + jerk * (Math.random() > 0.5 ? 1 : -1), 
-              y: (Math.random() - 0.5) * 5 + jerk 
-            });
-            setIsPressing(false);
-            return 0;
-          }
-          return next;
-        });
+        timerRef.current += 0.05;
+        pressureRef.current += 1.5;
+        
+        setTriggerTimer(timerRef.current);
+        setTriggerPressure(pressureRef.current);
+
+        if (pressureRef.current >= 100) {
+          // Shot breaks!
+          const holdTimePenalty = Math.max(0, timerRef.current - 10) * 5;
+          const jerkIntensity = pressureRef.current < 40 ? 15 : (pressureRef.current < 90 ? 5 : 2);
+          
+          setLastShot({ 
+            x: (Math.random() - 0.5) * 4 + (gripMode === 'milking' ? -15 : 0) + (Math.random() * jerkIntensity), 
+            y: (Math.random() - 0.5) * 4 + (gripMode === 'milking' ? 15 : 0) + (Math.random() * (jerkIntensity + holdTimePenalty))
+          });
+          
+          setIsPressing(false);
+          pressureRef.current = 0;
+          timerRef.current = 0;
+          setTriggerPressure(0);
+          setTriggerTimer(0);
+        }
       }, 50);
     } else {
+      pressureRef.current = 0;
+      timerRef.current = 0;
       setTriggerPressure(0);
+      setTriggerTimer(0);
     }
     return () => clearInterval(interval);
-  }, [isPressing]);
+  }, [isPressing, gripMode]);
 
   const pressurePoints = [
     { id: 'v-seat', x: 100, y: 45, label: 'V-Seat (Backstrap)', desc: 'High pressure in the web of the hand for maximum recoil control.' },
@@ -761,8 +777,9 @@ export default function VisualGuide() {
             <div className="text-center space-y-1">
               <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Angular Error Multiplier</p>
               <p className="text-lg font-mono font-bold text-shooting-blue">
-                {Math.sqrt(sightX**2 + sightY**2).toFixed(2)}x
+                {(Math.sqrt(sightX**2 + sightY**2) * 45.4).toFixed(1)}mm
               </p>
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Projected Miss at 10m</p>
               <p className={cn(
                 "text-[9px] font-bold uppercase tracking-widest",
                 Math.abs(sightX) < 0.15 && Math.abs(sightY) < 0.15 ? "text-green-500" : "text-shooting-red"
@@ -1131,7 +1148,7 @@ export default function VisualGuide() {
         
         <div className="relative h-24 w-full bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 flex items-center justify-center">
           <img 
-            src="/assets/prepare-for-shot.png" 
+            src="assets/prepare-for-shot.png" 
             alt="Execution Cycle" 
             className="h-full w-full object-cover opacity-20 absolute"
             referrerPolicy="no-referrer"
@@ -1265,7 +1282,7 @@ export default function VisualGuide() {
               </div>
             </div>
             <img 
-              src="/assets/wall-hold.png" 
+              src="assets/wall-hold.png" 
               alt="Wall Hold Drill" 
               className="w-full rounded-2xl border border-gray-100 shadow-sm opacity-80"
               referrerPolicy="no-referrer"
@@ -1423,7 +1440,7 @@ export default function VisualGuide() {
             </div>
           </div>
           <img 
-            src="/assets/hat-technique.png" 
+            src="assets/hat-technique.png" 
             alt="Hat Technique" 
             className="w-full rounded-2xl border border-gray-100 shadow-sm"
             referrerPolicy="no-referrer"
@@ -1440,7 +1457,7 @@ export default function VisualGuide() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <img 
-            src="/assets/hold-compare.png" 
+            src="assets/hold-compare.png" 
             alt="Hold Comparison" 
             className="w-full rounded-2xl border border-gray-100 shadow-sm"
             referrerPolicy="no-referrer"
