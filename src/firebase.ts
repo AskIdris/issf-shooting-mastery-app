@@ -96,6 +96,7 @@ export interface UserProfile {
   photoURL?: string;
   totalPoints: number;
   level: number;
+  role?: 'user' | 'admin';
   lastUpdated: any;
 }
 

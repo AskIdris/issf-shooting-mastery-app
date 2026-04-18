@@ -22,7 +22,8 @@ import {
   Eye,
   Trophy,
   User as UserIcon,
-  LogOut
+  LogOut,
+  Shield
 } from 'lucide-react';
 import { cn } from './lib/utils';
 import { TrainingSession } from './types';
@@ -37,11 +38,12 @@ import ShootingDrills from './components/ShootingDrills';
 import ScienceHub from './components/ScienceHub';
 import VisualGuide from './components/VisualGuide';
 import Leaderboard from './components/Leaderboard';
+import AdminPanel from './components/AdminPanel';
 
 function AppContent() {
   const location = useLocation();
   const [sessions, setSessions] = useState<TrainingSession[]>([]);
-  const { user, profile, login, logout, loading, isAuthorized, authError, clearAuthError } = useAuth();
+  const { user, profile, login, logout, loading, isAuthorized, isAdmin, authError, clearAuthError } = useAuth();
 
   useEffect(() => {
     try {
@@ -154,6 +156,11 @@ function AppContent() {
           </div>
           
           <div className="flex items-center gap-4">
+            {isAdmin && (
+              <Link to="/admin" className="p-2 text-gray-400 hover:text-shooting-blue transition-colors">
+                <Shield size={20} />
+              </Link>
+            )}
             {user ? (
               <div className="flex items-center gap-3">
                 <div className="text-right hidden sm:block">
@@ -197,6 +204,7 @@ function AppContent() {
             <Route path="/tracker" element={<PerformanceTracker sessions={sessions} onAddSession={addSession} onUpdateSession={updateSession} />} />
             <Route path="/quiz" element={<QuizSection quizzes={QUIZZES} />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
+            {isAdmin && <Route path="/admin" element={<AdminPanel />} />}
           </Routes>
         </AnimatePresence>
       </main>

@@ -9,6 +9,7 @@ interface AuthContextType {
   profile: UserProfile | null;
   loading: boolean;
   isAuthorized: boolean;
+  isAdmin: boolean;
   authError: string | null;
   login: () => Promise<void>;
   logout: () => Promise<void>;
@@ -23,6 +24,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
   const [notification, setNotification] = useState<{ points: number; id: number } | null>(null);
 
@@ -34,9 +36,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
-        // Check whitelist first
+        // Check admin first
+        const adminEmail = 'thetruthsearchchannel@gmail.com';
+        const isUserAdmin = firebaseUser.email === adminEmail;
+        setIsAdmin(isUserAdmin);
+
+        // Check whitelist
         let authorized = false;
-        if (firebaseUser.email === 'thetruthsearchchannel@gmail.com') {
+        if (isUserAdmin) {
           authorized = true;
         } else {
           try {
@@ -60,6 +67,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(null);
         setProfile(null);
         setIsAuthorized(false);
+        setIsAdmin(false);
       }
       setLoading(false);
     });
@@ -79,7 +87,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Listen for real-time updates to profile
       const unsubProfile = onSnapshot(userRef, (docSnap) => {
         if (docSnap.exists()) {
-          setProfile(docSnap.data() as UserProfile);
+          const profileData = docSnap.data() as UserProfile;
+          setProfile(profileData);
+          if (profileData.role === 'admin') {
+            setIsAdmin(true);
+          }
         } else {
           // Create initial profile
           const newProfile: UserProfile = {
@@ -88,6 +100,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             photoURL: user.photoURL || undefined,
             totalPoints: 0,
             level: 1,
+            role: isAdmin ? 'admin' : 'user',
             lastUpdated: Timestamp.now()
           };
           setDoc(userRef, newProfile).catch(err => {
@@ -163,7 +176,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, profile, loading, isAuthorized, authError, login, logout, awardPoints, clearAuthError }}>
+    <AuthContext.Provider value={{ user, profile, loading, isAuthorized, isAdmin, authError, login, logout, awardPoints, clearAuthError }}>
       {children}
       
       <AnimatePresence>

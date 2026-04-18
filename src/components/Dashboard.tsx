@@ -4,11 +4,15 @@ import { motion } from 'motion/react';
 import { TrendingUp, Award, Clock, Target, ChevronRight, Eye, Microscope, Trophy } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { TrainingSession } from '../types';
+import { cn } from '../lib/utils';
 
 export default function Dashboard({ sessions }: { sessions: TrainingSession[] }) {
   const recentScore = sessions.length > 0 ? sessions[0].score : 0;
   const avgScore = sessions.length > 0 
     ? Math.round(sessions.reduce((acc, s) => acc + s.score, 0) / sessions.length) 
+    : 0;
+  const highestScore = sessions.length > 0
+    ? Math.max(...sessions.map(s => s.score))
     : 0;
   
   const chartData = [...sessions].reverse().map(s => ({
@@ -48,7 +52,7 @@ export default function Dashboard({ sessions }: { sessions: TrainingSession[] })
       </Link>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
         <StatCard 
           label="Recent Score" 
           value={recentScore} 
@@ -60,6 +64,13 @@ export default function Dashboard({ sessions }: { sessions: TrainingSession[] })
           value={avgScore} 
           icon={<TrendingUp className="text-shooting-gold" size={20} />}
           trend="+1.1%"
+        />
+        <StatCard 
+          label="Best Score" 
+          value={highestScore} 
+          icon={<Trophy className="text-yellow-500" size={20} />}
+          trend="All-time"
+          className="col-span-2 sm:col-span-1"
         />
       </div>
 
@@ -172,9 +183,9 @@ export default function Dashboard({ sessions }: { sessions: TrainingSession[] })
   );
 }
 
-function StatCard({ label, value, icon, trend }: { label: string; value: number | string; icon: React.ReactNode; trend: string }) {
+function StatCard({ label, value, icon, trend, className }: { label: string; value: number | string; icon: React.ReactNode; trend: string; className?: string }) {
   return (
-    <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 space-y-3">
+    <div className={cn("bg-white p-5 rounded-2xl shadow-sm border border-gray-100 space-y-3", className)}>
       <div className="flex justify-between items-start">
         <div className="p-2 bg-gray-50 rounded-lg">{icon}</div>
         <span className="text-[10px] font-bold text-green-500 bg-green-50 px-2 py-0.5 rounded-full">{trend}</span>
