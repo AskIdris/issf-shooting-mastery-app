@@ -9,9 +9,11 @@ interface AuthContextType {
   profile: UserProfile | null;
   loading: boolean;
   isAuthorized: boolean;
+  authError: string | null;
   login: () => Promise<void>;
   logout: () => Promise<void>;
   awardPoints: (points: number) => Promise<void>;
+  clearAuthError: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -21,6 +23,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
   const [notification, setNotification] = useState<{ points: number; id: number } | null>(null);
 
   useEffect(() => {
@@ -30,35 +33,43 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      setUser(firebaseUser);
       if (firebaseUser) {
-        // Check whitelist
+        // Check whitelist first
+        let authorized = false;
         if (firebaseUser.email === 'thetruthsearchchannel@gmail.com') {
-          setIsAuthorized(true);
+          authorized = true;
         } else {
           try {
+            if (!db) throw new Error("Database connection not ready");
             const whitelistRef = doc(db, 'whitelisted_users', firebaseUser.email || '');
             const whitelistSnap = await getDoc(whitelistRef);
-            setIsAuthorized(whitelistSnap.exists());
-          } catch (error) {
+            authorized = whitelistSnap.exists();
+            if (!authorized) {
+              setAuthError(`Access denied. ${firebaseUser.email} is not on the authorized list.`);
+            }
+          } catch (error: any) {
             console.error("Error checking whitelist:", error);
-            setIsAuthorized(false);
+            authorized = false;
+            setAuthError(error.message || "Error verifying authorization. Please try again.");
           }
         }
+        
+        setIsAuthorized(authorized);
+        setUser(firebaseUser);
       } else {
+        setUser(null);
         setProfile(null);
         setIsAuthorized(false);
       }
-      if (!firebaseUser) setLoading(false);
+      setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
+    // Only fetch profile if user is authorized
     if (!user || !isAuthorized || !db || Object.keys(db).length === 0) {
-      if (user && !isAuthorized) setLoading(false);
-      if (!user) setLoading(false);
       return;
     }
 
@@ -98,20 +109,35 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [user]);
 
   const login = async () => {
+    setAuthError(null);
     try {
+      if (!auth) throw new Error("Firebase Auth not initialized");
       await signInWithPopup(auth, googleProvider);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Login failed:', error);
+      let message = "An error occurred during sign in.";
+      if (error.code === 'auth/popup-blocked') {
+        message = "The sign-in popup was blocked. Please enable popups in your browser and try again.";
+      } else if (error.code === 'auth/unauthorized-domain') {
+        message = "This domain is not authorized for Firebase Authentication. Please add it to your Firebase Console.";
+      } else if (error.message) {
+        message = error.message;
+      }
+      setAuthError(message);
     }
   };
 
   const logout = async () => {
     try {
+      if (!auth) return;
       await auth.signOut();
+      setAuthError(null);
     } catch (error) {
       console.error('Logout failed:', error);
     }
   };
+
+  const clearAuthError = () => setAuthError(null);
 
   const awardPoints = async (points: number) => {
     if (!user || !profile || !db) return;
@@ -137,7 +163,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, profile, loading, isAuthorized, login, logout, awardPoints }}>
+    <AuthContext.Provider value={{ user, profile, loading, isAuthorized, authError, login, logout, awardPoints, clearAuthError }}>
       {children}
       
       <AnimatePresence>

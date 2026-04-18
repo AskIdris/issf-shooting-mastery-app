@@ -1,10 +1,10 @@
 {
-  "projectId": "gen-lang-client-0044259428",
-  "appId": "1:483401870537:web:602ee70ff79589b8803118",
-  "apiKey": "AIzaSyDJBTz6ITqI4hT8fF1V2ZoXcnICWsKr-sQ",
-  "authDomain": "gen-lang-client-0044259428.firebaseapp.com",
+  "projectId": "precisionpistol-app",
+  "appId": "1:342303731227:web:3a7deaf7b113c360c292be",
+  "apiKey": "AIzaSyDrmbHZ7sonpSUk3UYuAXWQ72OfRWgIsCM",
+  "authDomain": "precisionpistol-app.firebaseapp.com",
   "firestoreDatabaseId": "ai-studio-67dc7b13-82bc-480b-b9f8-f321b27157fb",
-  "storageBucket": "gen-lang-client-0044259428.firebasestorage.app",
-  "messagingSenderId": "483401870537",
+  "storageBucket": "precisionpistol-app.firebasestorage.app",
+  "messagingSenderId": "342303731227",
   "measurementId": ""
 }

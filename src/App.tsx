@@ -41,7 +41,7 @@ import Leaderboard from './components/Leaderboard';
 function AppContent() {
   const location = useLocation();
   const [sessions, setSessions] = useState<TrainingSession[]>([]);
-  const { user, profile, login, logout, loading, isAuthorized } = useAuth();
+  const { user, profile, login, logout, loading, isAuthorized, authError, clearAuthError } = useAuth();
 
   useEffect(() => {
     try {
@@ -95,7 +95,24 @@ function AppContent() {
             <p className="text-gray-500">The science of Olympic marksmanship. Sign in to access your modules, drills, and training data.</p>
           </div>
 
-          {user && !isAuthorized ? (
+          {authError && (
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-red-50 border border-red-100 p-4 rounded-2xl space-y-2 relative"
+            >
+              <button 
+                onClick={clearAuthError}
+                className="absolute top-2 right-2 text-red-500 hover:text-red-700 w-6 h-6 flex items-center justify-center rounded-full hover:bg-red-100 transition-colors"
+              >
+                ×
+              </button>
+              <p className="text-red-800 font-bold text-sm">Authentication Issue</p>
+              <p className="text-red-600 text-xs leading-relaxed">{authError}</p>
+            </motion.div>
+          )}
+
+          {user && !isAuthorized && !authError ? (
             <div className="bg-red-50 border border-red-100 p-4 rounded-2xl space-y-2">
               <p className="text-red-800 font-bold text-sm">Access Restricted</p>
               <p className="text-red-600 text-xs">Your email ({user.email}) is not on the authorized list. Please contact the administrator.</p>
