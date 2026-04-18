@@ -799,17 +799,22 @@ export default function ShootingDrills() {
                   </div>
                 </div>
 
+                {/* Visual Cues */}
                 {selectedDrill.visualCues && (
                   <div className="space-y-4">
                     <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest">Visual Cues</h4>
-                    <div className="grid gap-3">
-                      <div className="bg-green-50 p-4 rounded-2xl border border-green-100">
-                        <p className="text-[10px] font-bold text-green-600 uppercase tracking-widest mb-1">Correct</p>
-                        <p className="text-sm text-green-800">{selectedDrill.visualCues.correct}</p>
+                    <div className="grid grid-cols-1 gap-4">
+                      <div className="p-4 rounded-2xl bg-green-50 border border-green-100 space-y-2">
+                        <div className="flex items-center gap-2 text-green-700 font-bold text-xs uppercase tracking-widest">
+                          <CheckCircle2 size={14} /> Correct Execution
+                        </div>
+                        <p className="text-sm text-green-800 leading-relaxed">{selectedDrill.visualCues.correct}</p>
                       </div>
-                      <div className="bg-red-50 p-4 rounded-2xl border border-red-100">
-                        <p className="text-[10px] font-bold text-red-600 uppercase tracking-widest mb-1">Incorrect</p>
-                        <p className="text-sm text-red-800">{selectedDrill.visualCues.incorrect}</p>
+                      <div className="p-4 rounded-2xl bg-red-50 border border-red-100 space-y-2">
+                        <div className="flex items-center gap-2 text-red-700 font-bold text-xs uppercase tracking-widest">
+                          <X size={14} /> Common Errors
+                        </div>
+                        <p className="text-sm text-red-800 leading-relaxed">{selectedDrill.visualCues.incorrect}</p>
                       </div>
                     </div>
                   </div>
