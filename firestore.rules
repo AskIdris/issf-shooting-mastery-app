@@ -56,6 +56,14 @@ service cloud.firestore {
       return isAuthenticated() && request.auth.uid == resource.data.uid;
     }
     //
+    // Check if user is in whitelist
+    function isWhitelisted() {
+      return isAuthenticated() && (
+        exists(/databases/$(database)/documents/whitelisted_users/$(request.auth.token.email)) ||
+        isAdmin()
+      );
+    }
+    //
     // Check if user is admin
     function isAdmin() {
       return isAuthenticated() &&
@@ -103,30 +111,37 @@ service cloud.firestore {
     }
 
     // Rules
+    match /whitelisted_users/{email} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
     match /users/{userId} {
       // Allow reading own profile or leaderboard (which only shows public info)
-      allow read: if isAuthenticated();
+      allow read: if isWhitelisted();
       
       // Allow users to create their own profile
       allow create: if isOwner(userId) && isValidUser(request.resource.data) && 
+                    isWhitelisted() &&
                     (!('role' in request.resource.data) || request.resource.data.role == 'user' || isAdmin());
       
       // Allow users to update their own profile, but not their role (unless admin)
       allow update: if isOwner(userId) && isValidUser(request.resource.data) &&
+                    isWhitelisted() &&
                     (request.resource.data.uid == resource.data.uid) &&
                     (request.resource.data.get('role', resource.data.get('role', 'user')) == resource.data.get('role', 'user') || isAdmin());
     }
 
     match /drill_attempts/{attemptId} {
-      allow read: if isDocOwner() || isAdmin();
-      allow create: if isAuthenticated() && request.resource.data.uid == request.auth.uid && isValidDrillAttempt(request.resource.data);
-      allow update, delete: if isDocOwner() || isAdmin();
+      allow read: if (isDocOwner() || isAdmin()) && isWhitelisted();
+      allow create: if isWhitelisted() && request.resource.data.uid == request.auth.uid && isValidDrillAttempt(request.resource.data);
+      allow update, delete: if (isDocOwner() || isAdmin()) && isWhitelisted();
     }
 
     match /quiz_results/{resultId} {
-      allow read: if isDocOwner() || isAdmin();
-      allow create: if isAuthenticated() && request.resource.data.uid == request.auth.uid && isValidQuizResult(request.resource.data);
-      allow update, delete: if isDocOwner() || isAdmin();
+      allow read: if (isDocOwner() || isAdmin()) && isWhitelisted();
+      allow create: if isWhitelisted() && request.resource.data.uid == request.auth.uid && isValidQuizResult(request.resource.data);
+      allow update, delete: if (isDocOwner() || isAdmin()) && isWhitelisted();
     }
   }
 }

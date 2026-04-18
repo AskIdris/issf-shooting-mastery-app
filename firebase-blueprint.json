@@ -54,6 +54,16 @@
     "/quiz_results/{resultId}": {
       "schema": "QuizResult",
       "description": "History of quiz results"
+    },
+    "/whitelisted_users/{email}": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string" },
+          "addedAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "description": "Users allowed to access the application"
     }
   }
 }

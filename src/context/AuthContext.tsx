@@ -8,6 +8,7 @@ interface AuthContextType {
   user: FirebaseUser | null;
   profile: UserProfile | null;
   loading: boolean;
+  isAuthorized: boolean;
   login: () => Promise<void>;
   logout: () => Promise<void>;
   awardPoints: (points: number) => Promise<void>;
@@ -19,6 +20,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<FirebaseUser | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isAuthorized, setIsAuthorized] = useState(false);
   const [notification, setNotification] = useState<{ points: number; id: number } | null>(null);
 
   useEffect(() => {
@@ -27,20 +29,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       setUser(firebaseUser);
-      if (!firebaseUser) {
+      if (firebaseUser) {
+        // Check whitelist
+        if (firebaseUser.email === 'thetruthsearchchannel@gmail.com') {
+          setIsAuthorized(true);
+        } else {
+          try {
+            const whitelistRef = doc(db, 'whitelisted_users', firebaseUser.email || '');
+            const whitelistSnap = await getDoc(whitelistRef);
+            setIsAuthorized(whitelistSnap.exists());
+          } catch (error) {
+            console.error("Error checking whitelist:", error);
+            setIsAuthorized(false);
+          }
+        }
+      } else {
         setProfile(null);
-        setLoading(false);
+        setIsAuthorized(false);
       }
+      if (!firebaseUser) setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-    if (!user || !db || Object.keys(db).length === 0) {
-      if (user) setLoading(false);
+    if (!user || !isAuthorized || !db || Object.keys(db).length === 0) {
+      if (user && !isAuthorized) setLoading(false);
+      if (!user) setLoading(false);
       return;
     }
 
@@ -119,7 +137,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, profile, loading, login, logout, awardPoints }}>
+    <AuthContext.Provider value={{ user, profile, loading, isAuthorized, login, logout, awardPoints }}>
       {children}
       
       <AnimatePresence>

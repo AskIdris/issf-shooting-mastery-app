@@ -41,7 +41,7 @@ import Leaderboard from './components/Leaderboard';
 function AppContent() {
   const location = useLocation();
   const [sessions, setSessions] = useState<TrainingSession[]>([]);
-  const { user, profile, login, logout, loading } = useAuth();
+  const { user, profile, login, logout, loading, isAuthorized } = useAuth();
 
   useEffect(() => {
     try {
@@ -66,6 +66,65 @@ function AppContent() {
     setSessions(updated);
     localStorage.setItem('shooting_sessions', JSON.stringify(updated));
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#F5F5F7] flex items-center justify-center">
+        <motion.div 
+          animate={{ scale: [1, 1.1, 1] }} 
+          transition={{ repeat: Infinity, duration: 2 }}
+          className="w-12 h-12 bg-shooting-blue rounded-2xl"
+        />
+      </div>
+    );
+  }
+
+  if (!user || !isAuthorized) {
+    return (
+      <div className="min-h-screen bg-[#F5F5F7] flex flex-col items-center justify-center p-6 text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-sm space-y-8"
+        >
+          <div className="space-y-4">
+            <div className="w-20 h-20 bg-shooting-blue rounded-3xl flex items-center justify-center text-white text-4xl font-bold mx-auto shadow-2xl shadow-blue-200">
+              P
+            </div>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">PrecisionPistol Mastery</h1>
+            <p className="text-gray-500">The science of Olympic marksmanship. Sign in to access your modules, drills, and training data.</p>
+          </div>
+
+          {user && !isAuthorized ? (
+            <div className="bg-red-50 border border-red-100 p-4 rounded-2xl space-y-2">
+              <p className="text-red-800 font-bold text-sm">Access Restricted</p>
+              <p className="text-red-600 text-xs">Your email ({user.email}) is not on the authorized list. Please contact the administrator.</p>
+              <button 
+                onClick={logout}
+                className="text-red-800 text-xs font-bold underline"
+              >
+                Sign out
+              </button>
+            </div>
+          ) : (
+            <button 
+              onClick={login}
+              className="w-full bg-shooting-blue text-white py-4 rounded-2xl font-bold text-lg hover:bg-blue-600 transition-all active:scale-95 shadow-xl shadow-blue-200"
+            >
+              Sign In with Google
+            </button>
+          )}
+
+          <div className="space-y-2">
+            <p className="text-[10px] text-gray-400 uppercase font-black tracking-widest">Authorized Access Only</p>
+            <div className="flex justify-center gap-1">
+              {[1, 2, 3].map(i => <div key={i} className="w-1 h-1 rounded-full bg-gray-200" />)}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F5F5F7] text-[#1A1A1A] font-sans">
